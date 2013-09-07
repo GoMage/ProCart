@@ -1,0 +1,52 @@
+<?php
+ /**
+ * GoMage ProCart Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.0
+ * @since        Class available since Release 1.0
+ */
+ ?>
+<script type="text/javascript">
+//<![CDATA[
+	var GomageProcartConfig = null;
+    var gomage_procart_config = <?php echo $this->getConfig(); ?>;     
+    var gomage_procart_qty_template = <?php echo $this->getQtyTemplate(); ?>;
+    var gomage_procart_qty_cart_template = <?php echo $this->getQtyCartTemplate(); ?>;
+    var gomage_procart_qty_product_template = <?php echo $this->getQtyProductTemplate(); ?>;
+    var gomage_procart_continue_text = '<?php echo Mage::helper('gomage_procart')->__('Continue Shopping') ?>'; 
+//]]>
+</script>
+
+<div id="gpc_confirmation_window" style="display: none;" class="gpc-confw-buttoncs-<?php echo Mage::getStoreConfig('gomage_procart/confirm_window/shopping_button_color') ?> gpc-confw-buttongtsc-<?php echo Mage::getStoreConfig('gomage_procart/confirm_window/cart_button_color') ?>">
+	<p class="gpc_msg_title">
+		<span id="gpc_conf_win_qty"></span>	
+		<span class="gpc_msg_x"></span>			
+		<span id="gpc_conf_win_prod_name"></span>
+		<span id="gpc_conf_win_was" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('was') ?></span>
+		<span id="gpc_conf_win_were" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('were') ?></span>
+	    <?php echo Mage::helper('gomage_procart')->__('added to your cart.') ?>
+	</p>
+	<div class="gpc_confirmation_window_actions">
+	<button onclick="$('gpc_confirmation_window').hide(); GomageProcartConfig.overlay.hide()" class="gpc_msg_bnt gpc_msg_bnt_cs"><span><span id="gpc_confirm_window_continue"><?php echo Mage::helper('gomage_procart')->__('Continue Shopping') ?></span></span></button>
+	<?php if (Mage::helper('gomage_procart')->isShoppingCartDisable()) : ?>
+		<button class="gpc_msg_bnt gpc_msg_bnt_ptc" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage'); ?>')"><span><span id="gpc_confirm_window_checkout"><?php echo Mage::helper('gomage_procart')->__('Proceed to Checkout') ?></span></span></button>
+		<script type="text/javascript">
+		//<![CDATA[
+			var gomage_procart_checkout_text = '<?php echo Mage::helper('gomage_procart')->__('Proceed to Checkout') ?>';
+		//]]>
+		</script>
+	<?php else: ?>
+		<button class="gpc_msg_bnt gpc_msg_bnt_ptc" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>')"><span><span id="gpc_confirm_window_checkout"><?php echo Mage::helper('gomage_procart')->__('Go to Shopping Cart') ?></span></span></button>
+		<script type="text/javascript">
+		//<![CDATA[
+			var gomage_procart_checkout_text = '<?php echo Mage::helper('gomage_procart')->__('Go to Shopping Cart') ?>';
+		//]]>
+		</script>
+	<?php endif; ?>
+	</div>
+</div>
