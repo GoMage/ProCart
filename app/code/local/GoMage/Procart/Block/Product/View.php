@@ -16,12 +16,13 @@ class GoMage_Procart_Block_Product_View extends Mage_Core_Block_Template{
     protected $_procartproductlist = null;
 
     public function getProcartProductList(){
-
+    	
         if (!$this->_procartproductlist){
             $this->_procartproductlist = array();
             $helper = Mage::helper('gomage_procart');
+
             if ($product = Mage::registry('current_product')){
-                $this->_procartproductlist[$product->getId()] = $helper->getProcartProductData($product);
+                $this->_procartproductlist[$product->getId()] = $helper->getProcartProductData($product, $helper->isConfigureCart());
                 if($product->isComposite()){
                     $ti = $product->getTypeInstance(true);
                     foreach($ti->getChildrenIds($product->getId()) as $groupIds){

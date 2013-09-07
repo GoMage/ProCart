@@ -238,8 +238,8 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
         return $lightcheckout;
     }
 
-    public function getProcartProductData($product){
-        if ($product->getStockItem()->getManageStock() &&
+    public function getProcartProductData($product, $cart = false){
+    	if ($product->getStockItem()->getManageStock() &&
             !$product->getStockItem()->getBackorders()){
             $min_qty = $product->getStockItem()->getMinSaleQty();
             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE){
@@ -254,10 +254,21 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
                 $max_qty = $max_qty - $qty;
                 if ($min_qty > $max_qty) $min_qty = $max_qty;
             }
-        }else{
+        }
+        else{
             $min_qty = $product->getStockItem()->getMinSaleQty();
             $max_qty = $product->getStockItem()->getMaxSaleQty();
         }
+        
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        $cartItems = $quote->getAllVisibleItems();
+	    foreach ($cartItems as $item) {
+		    if ( $item->getProductId() == $product->getId() )
+		    {
+		    	$max_qty = $max_qty + $item->getQty();
+		    }
+		}
+        
 
         return array('min_qty' => intval($min_qty),
             'max_qty' => intval($max_qty),
@@ -266,6 +277,18 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
             'is_grouped' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED ? 1 : 0),
             'product_url' => $product->getProductUrl()
         );
+    }
+    
+    public function isConfigureCart()
+    {
+    	$uri = $_SERVER["REQUEST_URI"];
+    	
+    	if ( strpos($uri, 'checkout/cart/configure/id') !== false )
+    	{
+    		return 1;
+    	}
+    	
+    	return 0;
     }
 
     public function getBundleProductSelections($parentProduct)

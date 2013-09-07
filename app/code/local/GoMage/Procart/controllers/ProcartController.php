@@ -86,6 +86,8 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                     $result['error'] = true;
                 	$result['message'] = $this->__('The minimum quantity allowed for purchase is %s.', $minimumQty);
                 }
+                
+                $result['cart'] = $this->getRequest()->getParam('cart');
 
                 if (!$result['error']){
                     if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE){
@@ -99,7 +101,10 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                             $quote = Mage::getSingleton('checkout/session')->getQuote();
                             $item = $quote->getItemByProduct($product);
                             if ($item && $qty = $item->getQty()){
-                                 $max_qty = $max_qty - $qty;
+                            	if ( $result['cart'] != '1' )
+                            	{
+                                    $max_qty = $max_qty - $qty;
+                            	}
                                  if ($min_qty > $max_qty) $min_qty = $max_qty;
                             }
             			    if($result['qty'] > $max_qty || $result['qty'] < $min_qty){

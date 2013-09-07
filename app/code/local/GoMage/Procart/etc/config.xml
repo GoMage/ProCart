@@ -241,8 +241,14 @@
             <catalog>
 	        	<rewrite>
 	        		<product_list>GoMage_Procart_Block_Product_List</product_list>
+	        		<product_new>GoMage_Procart_Block_Product_New</product_new>
 	        	</rewrite>
             </catalog>
+            <reports>
+	        	<rewrite>
+	        		<product_viewed>GoMage_Procart_Block_Product_Viewed</product_viewed>
+	        	</rewrite>
+            </reports>
             <bundle>
             	<rewrite>
 	        		<checkout_cart_item_renderer>GoMage_Procart_Block_Checkout_Cart_Item_Renderer</checkout_cart_item_renderer>

@@ -830,10 +830,13 @@ GomageProcartConfigClass.prototype = {
                 return;
             }
             if (response.product_id){
-                this.product_list[response.product_id].max_qty = this.product_list[response.product_id].max_qty*1 - response.qty*1;
-                if (this.product_list[response.product_id].max_qty*1 < this.product_list[response.product_id].min_qty*1){
-                    this.product_list[response.product_id].min_qty = this.product_list[response.product_id].max_qty;
-                }
+            	if ( gomage_procart_configure_cart != 1 )
+            	{
+	                this.product_list[response.product_id].max_qty = this.product_list[response.product_id].max_qty*1 - response.qty*1;
+	                if (this.product_list[response.product_id].max_qty*1 < this.product_list[response.product_id].min_qty*1){
+	                    this.product_list[response.product_id].min_qty = this.product_list[response.product_id].max_qty;
+	                }
+            	}
             }
             if (this.slide_control != undefined){
                 this.effectSlidetoCart(this.slide_control);
@@ -1544,8 +1547,10 @@ GomageProcartConfigClass.prototype = {
                 }
             }
             this.startLoadData();
+            
             var params = {product_id: product_id,
-                qty: qty};
+                qty: qty,
+                cart: gomage_procart_configure_cart};
             var request = new Ajax.Request(this.config.changeproductqty_url,
                 {
                     method:'post',
@@ -1583,7 +1588,8 @@ GomageProcartConfigClass.prototype = {
 
             this.startLoadData();
             var params = {product_id: product_id,
-                qty: qty};
+                qty: qty,
+                cart: gomage_procart_configure_cart};
 
             var request = new Ajax.Request(this.config.changeproductqty_url,
                 {
