@@ -8,7 +8,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
  -->
@@ -19,11 +19,7 @@
         </reference>
         <reference name="head">    	    		    		    		    	
         	<action method="addItem"><type>skin_css</type><name>css/gomage/procart.css</name></action>	    		      		     		
-    		<action method="addJs"><script>gomage/procart.js</script></action> 
-    	</reference>	   
-    </default>
-    <catalog_category_default>
-    	<reference name="head"> 
+    		<action method="addJs"><script>gomage/procart.js</script></action>
     		<action method="addJs"><script>prototype/effects.js</script></action>
     		<action method="addJs"><script>gomage/procart-window.js</script></action>
     		<action method="addJs"><script>varien/product.js</script></action>
@@ -31,38 +27,20 @@
             <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>   	    		    		    		    	        	 
-    	</reference>
+            <action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action> 
+    	</reference>	   
+    </default>
+    <catalog_category_default>    	
     	<reference name="content">
     		<block type="gomage_procart/product_list" name="gomage.procart.product.list" template="gomage/procart/product/list.phtml" />
     	</reference>	
     </catalog_category_default>
     <catalog_category_layered>
-    	<reference name="head">   
-    		<action method="addJs"><script>prototype/effects.js</script></action>
-    		<action method="addJs"><script>gomage/procart-window.js</script></action> 	    		    		    		    	   
-    		<action method="addJs"><script>varien/product.js</script></action>
-            <action method="addJs"><script>varien/configurable.js</script></action>
-            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>     	 
-    	</reference>
     	<reference name="content">
     		<block type="gomage_procart/product_list" name="gomage.procart.product.list" template="gomage/procart/product/list.phtml" />
     	</reference>
     </catalog_category_layered>	
-    <catalog_product_view>    	
-    	<reference name="head">   
-    		<action method="addJs"><script>prototype/effects.js</script></action>
-    		<action method="addJs"><script>gomage/procart-window.js</script></action> 	    		    		    		    	   
-    		<action method="addJs"><script>varien/product.js</script></action>
-            <action method="addJs"><script>varien/configurable.js</script></action>
-            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-            <action method="addItem"><type>skin_js</type><name>js/bundle.js</name></action>     	 
-    	</reference>
+    <catalog_product_view>    	    	
     	<reference name="after_body_start">
     		<block type="gomage_procart/product_view" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" before="-" />
     	</reference>

@@ -99,6 +99,7 @@
 	width:auto !important;
 	max-height:480px !important;
 	background:none;
+  position:relative;
 }
 	/* Common END */
 	
@@ -238,6 +239,8 @@
 	position:absolute;
 	right:20px;
 	top:20px;
+  padding:0;
+  margin:0;
 }
 #gcp_configurable_add_to_cart .product-options dd select {
 	width:100%;
@@ -277,7 +280,7 @@
 	margin:0 0 10px;
 	line-height:14px;
 	font-weight:700;
-	padding:10px 0;
+	padding:10px;
 	background:#EFF5EA;
 	border:1px solid #446423;
 }
@@ -562,6 +565,27 @@ input.procart-qty{
 .gpc-arrbut-cp-en.gpc-but-lr .gpc-cart-butt-lr input.qty{
 	float:left;
 }
+.gpc-arrbut-cross-en .cart .crosssell button.btn-cart{
+  margin:8px 6px 0 0;
+}
+.gpc-arrbut-cross-en.gpc-ar-lr .cart .crosssell button.btn-cart,
+.gpc-arrbut-cross-en.gpc-but-lr .cart .crosssell button.btn-cart{
+  margin-top:0;
+}
+.gpc-arrbut-cross-en.gpc-but-tb .cart .crosssell button.btn-cart{
+  margin:18px 6px 0 0;
+}
+.gpc-arrbut-cross-en .cart .crosssell button.btn-cart,
+.gpc-arrbut-cross-en .cart .crosssell .gpc_qty_edit{
+  float:left;
+}
+.gpc-arrbut-cross-en .cart .crosssell .add-to-links{
+  clear:both;
+}
+.gpc-arrbut-cross-en.gpc-ar-lr .cart .crosssell .gpc_qty_edit input.procart-qty,
+.gpc-arrbut-cross-en.gpc-but-lr .cart .crosssell .gpc_qty_edit input.procart-qty{
+  float:left;
+}
 
 	/* Sidebar block*/
 .gpc-arrbut-mcb-en .block-cart .mini-products-list .product-details strong{
@@ -726,6 +750,38 @@ input.procart-qty{
 .gpc-arrbut-prodp-en .product-view .product-options-bottom .add-to-cart .gpc_qty_edit{
 	float:left;
 }
+.gpc-arrbut-cross-en .cart .crosssell .product-details{
+  float:left;
+  width:171px;
+  margin-left:12px;
+}
+
+/* Sales & Deals */
+.gpc-ar-tb .gomage-sd .mini-products-list .product-details button.btn-cart,
+.gpc-ar-lr .gomage-sd .mini-products-list .product-details button.btn-cart,
+.gpc-but-tb .gomage-sd .mini-products-list .product-details button.btn-cart,
+.gpc-but-lr .gomage-sd .mini-products-list .product-details button.btn-cart{
+  float:left;
+  margin-right:6px;
+  margin-top:8px;
+}
+.gpc-ar-lr .gomage-sd .mini-products-list .product-details button.btn-cart,
+.gpc-but-lr .gomage-sd .mini-products-list .product-details button.btn-cart{
+  margin-top:0;
+}
+.gpc-but-tb .gomage-sd .mini-products-list .product-details button.btn-cart{
+  margin-top:17px;
+}
+.gpc-ar-tb .gomage-sd .mini-products-list .product-details .gpc_qty_edit,
+.gpc-ar-lr .gomage-sd .mini-products-list .product-details .gpc_qty_edit,
+.gpc-but-tb .gomage-sd .mini-products-list .product-details .gpc_qty_edit,
+.gpc-but-lr .gomage-sd .mini-products-list .product-details .gpc_qty_edit{
+  float:left;
+}
+.gpc-ar-lr .gomage-sd .mini-products-list .product-details .gpc_qty_edit .procart-qty,
+.gpc-but-lr .gomage-sd .mini-products-list .product-details .gpc_qty_edit .procart-qty{
+  float:left;
+}
 
 /* Clears */
 #gcp_configurable_add_to_cart .product-options dt:after,
@@ -738,3 +794,20 @@ input.procart-qty{
 #gcp_configurable_add_to_cart,#gcp_configurable_add_to_cart_content,#gcp_configurable_add_to_cart_content .product-options,#gcp_configurable_add_to_cart_content .product-options dl,#gcp_configurable_add_to_cart .product-options dt,#gcp_configurable_add_to_cart .product-options dd,#gcp_configurable_add_to_cart .product-options .options-list li,.gpc-arrbut-cp-en.gpc-ar-lr .gpc-cart-arr-lr{zoom:1;}
 .gpc_msg_title #gpc_conf_win_qty{/padding-right:5px;}
 /* Clears END */
+
+.gpc-ar-tb .gomage-sd .mini-products-list .product-details .gpc_qty_edit .procart-tarr{
+  /margin-bottom:-8px;
+}
+.gomage-sd .mini-products-list .product-details{
+  zoom:0;
+}
+.gpc-arrbut-prodp-en.gpc-ar-tb .product-view .product-options-bottom .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-en.gpc-but-tb .product-view .product-options-bottom .add-to-cart .gpc_qty_edit{
+  /width:41px;
+}
+.gpc-arrbut-cross-en.gpc-ar-tb .cart .crosssell .gpc_qty_edit,
+.gpc-arrbut-cross-en.gpc-but-tb .cart .crosssell .gpc_qty_edit,
+.gpc-ar-tb .gomage-sd .mini-products-list .product-details .gpc_qty_edit,
+.gpc-but-tb .gomage-sd .mini-products-list .product-details .gpc_qty_edit{
+  /width:32px;
+}

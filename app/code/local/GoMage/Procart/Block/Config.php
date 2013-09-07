@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
 	
@@ -15,6 +15,7 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template{
 
     protected $_config = null; 
     protected $_qty_template = null;
+    protected $_qty_deals_template = null;
     protected $_qty_cart_template = null;
     protected $_qty_product_template = null;
         
@@ -55,6 +56,9 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template{
                 $root->addBodyClass('gpc-arrbut-mcb-en');
             if (Mage::getStoreConfig('gomage_procart/qty_settings/cart_page'))        
                 $root->addBodyClass('gpc-arrbut-cp-en');
+            if (Mage::getStoreConfig('gomage_procart/qty_settings/crosssell_prods'))        
+                $root->addBodyClass('gpc-arrbut-cross-en');    
+                
 
             $styles_block = $this->getLayout()->createBlock('core/template', 'gomage_procart_styles')->setTemplate('gomage/procart/header/styles.php');
 	        $this->getLayout()->getBlock('head')->setChild('gomage_procart_styles', $styles_block);     
@@ -89,13 +93,17 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template{
 		     $this->_config['change_qty_cart_page'] = Mage::getStoreConfig('gomage_procart/qty_settings/cart_page');		     		     		     
 		     $this->_config['change_qty_category_page'] = Mage::getStoreConfig('gomage_procart/qty_settings/category_page');
 		     $this->_config['change_qty_product_page'] = (Mage::registry('current_product') && Mage::getStoreConfig('gomage_procart/qty_settings/product_page') ? 1 : 0);
+		     $this->_config['change_qty_crosssell_prods'] = Mage::getStoreConfig('gomage_procart/qty_settings/crosssell_prods');
 		     		     		     
 		     $this->_config['show_window'] = Mage::getStoreConfig('gomage_procart/confirm_window/show_window');
 		     $this->_config['auto_hide_window'] = Mage::getStoreConfig('gomage_procart/confirm_window/auto_hide_window');
 		     $this->_config['redirect_to'] = Mage::getStoreConfig('gomage_procart/confirm_window/redirect_to');
 		     $this->_config['add_effect'] = Mage::getStoreConfig('gomage_procart/general/add_effect');
 		     $this->_config['cart_button_color'] = Mage::getStoreConfig('gomage_procart/confirm_window/cart_button_color');
-		     $this->_config['background_view'] = Mage::getStoreConfig('gomage_procart/confirm_window/background_view');
+		     $this->_config['background_view'] = Mage::getStoreConfig('gomage_procart/confirm_window/background_view');		     
+		     $this->_config['window_width'] = Mage::getStoreConfig('gomage_procart/confirm_window/width');
+		     
+		     $this->_config['addition_product_list_url'] = $this->getUrl('gomageprocart/procart/getproductlist');
          }
          return Mage::helper('core')->jsonEncode($this->_config);          
     }
@@ -126,6 +134,34 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template{
              $this->_qty_template = $template->toHtml();
          }
          return Mage::helper('core')->jsonEncode($this->_qty_template);                  
+    }
+    
+    public function getQtyDealsTemplate()
+    {
+         if (!$this->_qty_deals_template)
+         {
+             $template = $this->getLayout()->createBlock('core/template', 'gomage.procart.qty.deals.template');
+                                       
+             switch (Mage::getStoreConfig('gomage_procart/qty_settings/qty_view'))
+             {
+                 case GoMage_Procart_Model_Adminhtml_System_Config_Source_Qtyview::ARROWS_LEFT_RIGHT:
+                     $template->setTemplate('gomage/procart/deals/arrows/left_right.phtml');
+                 break;
+                 case GoMage_Procart_Model_Adminhtml_System_Config_Source_Qtyview::BUTTONS_TOP_BOTTOM:
+                     $template->setTemplate('gomage/procart/deals/buttons/top_bottom.phtml');
+                 break;
+                 case GoMage_Procart_Model_Adminhtml_System_Config_Source_Qtyview::BUTTONS_LEFT_RIGHT:
+                     $template->setTemplate('gomage/procart/deals/buttons/left_right.phtml');
+                 break;
+                 case GoMage_Procart_Model_Adminhtml_System_Config_Source_Qtyview::ARROWS_TOP_BOTTOM:
+                 default:    
+                     $template->setTemplate('gomage/procart/deals/arrows/top_bottom.phtml');
+                         
+             } 
+             
+             $this->_qty_deals_template = $template->toHtml();
+         }
+         return Mage::helper('core')->jsonEncode($this->_qty_deals_template);                  
     }
 
     public function getQtyCartTemplate()

@@ -7,18 +7,18 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
  ?>
 <style type="text/css">	
 	.gpc-loadinfo{		
 		<?php if($_color = Mage::getStoreConfig('gomage_procart/ajaxloader/bordercolor')):?>
-		border-color:<?php echo $_color;?> !important;
+		border-color:<?php echo Mage::helper('gomage_procart')->formatColor($_color);?> !important;
 		<?php endif;?>
 		
 		<?php if($_color = Mage::getStoreConfig('gomage_procart/ajaxloader/bgcolor')):?>
-		background-color:<?php echo $_color;?> !important;
+		background-color:<?php echo Mage::helper('gomage_procart')->formatColor($_color);?> !important;
 		<?php endif;?>
 		
 		<?php if($_width = intval(Mage::getStoreConfig('gomage_procart/ajaxloader/width'))):?>
@@ -31,11 +31,11 @@
 	}
 	#gpc_confirmation_window, #gcp_configurable_add_to_cart{
 		<?php if($_color = Mage::getStoreConfig('gomage_procart/confirm_window/bordercolor')):?>
-		border-color:<?php echo $_color;?> !important;
+		border-color:<?php echo Mage::helper('gomage_procart')->formatColor($_color);?> !important;
 		<?php endif;?>
 		
 		<?php if($_color = Mage::getStoreConfig('gomage_procart/confirm_window/bgcolor')):?>
-		background-color:<?php echo $_color;?> !important;
+		background-color:<?php echo Mage::helper('gomage_procart')->formatColor($_color);?> !important;
 		<?php endif;?>
 		
 		<?php if($_width = intval(Mage::getStoreConfig('gomage_procart/confirm_window/width'))):?>

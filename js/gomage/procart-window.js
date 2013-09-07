@@ -211,10 +211,18 @@ GcpWindow.prototype = {
     if (this.options.url) 
       this.content.src = null
 
-     if(this.iefix) 
-      Element.remove(this.iefix);
-
-    Element.remove(this.element);
+    if (!Prototype.Browser.IE){  
+	    if(this.iefix){ 
+	      Element.remove(this.iefix);
+	    }  
+	    Element.remove(this.element);
+    }else{
+    	if(this.iefix){ 
+  	      this.iefix.id = 'iefix_' + new Date().getTime();
+  	    }  
+  	    this.element.id = 'gpc_win_' + new Date().getTime();
+    }
+        
     GcpWindows.unregister(this);      
 
   },

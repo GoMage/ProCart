@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */ 
 
@@ -52,9 +52,11 @@ class GoMage_Procart_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Bloc
     public function getDeleteUrl()
     {
         $helper = Mage::helper('gomage_procart');
-        $is_cart = ($helper->getIsCartPage() || $helper->getChangeAttributeCart() || $helper->getChangeQtyCart());
+        $rendered = $this->getRenderedBlock();
+        $is_cart = ($helper->getIsCartPage() || $helper->getChangeAttributeCart() || 
+                    $helper->getChangeQtyCart() || $helper->isCrosssellAdd());
         if ($helper->isProCartEnable() &&
-            ((Mage::getStoreConfig('gomage_procart/qty_settings/cart_block') && !$is_cart) ||
+            ((Mage::getStoreConfig('gomage_procart/qty_settings/cart_block') && $rendered && ($rendered->getNameInLayout() == 'cart_sidebar')) ||
              (Mage::getStoreConfig('gomage_procart/qty_settings/cart_page') && $is_cart) )){        
             return 'javascript:GomageProcartConfig.deleteItem(\'' . $this->getUrl(
                 'checkout/cart/delete',

@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
  
@@ -17,6 +17,7 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
 		
 	    $result = array();
 	    $result['error'] = false;
+	    $result['deals_id'] = $this->getRequest()->getParam('deals_id');
 	    
 	    if (($result['qty'] = intval($this->getRequest()->getParam('qty'))) &&
 	        ($result['product_id'] = $this->getRequest()->getParam('product_id'))){
@@ -36,7 +37,11 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                       if (!$result['error']){
                           if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE){
                                   $min_qty = $minimumQty;
-                                  $max_qty = min(array($maximumQty, $product->getStockItem()->getQty()));
+                                  if ($product->getStockItem()->getBackorders()){
+                                      $max_qty = $maximumQty;
+                                  }else{    
+                                      $max_qty = min(array($maximumQty, $product->getStockItem()->getQty()));
+                                  }    
 
                                   $quote = Mage::getSingleton('checkout/session')->getQuote();
                                   $item = $quote->getItemByProduct($product);
@@ -86,8 +91,12 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                 if (!$result['error']){
                     if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE){
                             $min_qty = $minimumQty;
-                            $max_qty = min(array($maximumQty, $product->getStockItem()->getQty()));
-
+                            if ($product->getStockItem()->getBackorders()){
+                                $max_qty = $maximumQty;
+                            }else{    
+                                $max_qty = min(array($maximumQty, $product->getStockItem()->getQty()));
+                            }    
+                            
                             $quote = Mage::getSingleton('checkout/session')->getQuote();
                             $item = $quote->getItemByProduct($product);
                             if ($item && $qty = $item->getQty()){
@@ -157,7 +166,12 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
     		                foreach ($item->getChildren() as $child) {
     		                    $_product_id = $child->getProductId();
     		                    $_product = Mage::getModel('catalog/product')->load($_product_id);
-    		                    $maximumQty = $_product->getStockItem()->getQty();
+    		                    
+    		                    if ($_product->getStockItem()->getBackorders()){
+                                    $maximumQty = intval($_product->getStockItem()->getMaxSaleQty());
+                                }else{    
+                                    $maximumQty = $_product->getStockItem()->getQty();
+                                }        
             				    if($result['qty'] > $maximumQty){
             		            	$result['error'] = true;
                     	            $result['message'] = $this->__('The requested quantity for %s is not available.', '"'.$product->getName().'"');
@@ -167,13 +181,20 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
     		            }
     		            else
     		            {
-        		            $maximumQty = $product->getStockItem()->getQty();
+    		                if ($product->getStockItem()->getBackorders()){
+                                $maximumQty = intval($product->getStockItem()->getMaxSaleQty());
+                            }else{    
+                                $maximumQty = $product->getStockItem()->getQty();
+                            }        		            
         				    if($result['qty'] > $maximumQty){
         		            	$result['error'] = true;
                     	        $result['message'] = $this->__('The requested quantity for %s is not available.', '"'.$product->getName().'"');
         		            }
     		            }
     	            }
+    	            
+    	            $result['product_id'] = $product->getId();
+    	            $result['max_qty'] = $maximumQty - $result['qty'];
 
                 }
     
@@ -207,12 +228,14 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
             }
 
             if (!$result['error'] && $this->getRequest()->getParam('cart') == 1){
-
-                if ($item_html = $this->getCartItem($result['item_id']))
-                    $result['item_html'] = $item_html;
+                
+                $result['items_html'] = $this->getCartItems();
                                                                         
                 if ($total = $this->getCartTolal())                        
                     $result['total'] = $total;
+
+                if ($shipping = $this->getCartShipping())                        
+                    $result['shipping'] = $shipping;    
             }
             
             if (!$result['error']){
@@ -228,9 +251,9 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
 		$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));	    
 	}
 	
-	public function getCartItem($item_id)
+	public function getCartItems()
 	{
-	    $item_html = '';
+	    $items_html = '';
 	    $layout = Mage::getSingleton('core/layout');
         $cart = $layout->createBlock('checkout/cart', 'checkout.cart')    	                                    	                                
                                 ->addItemRender('simple', 'checkout/cart_item_renderer', 'checkout/cart/item/default.phtml')
@@ -238,15 +261,11 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                                 ->addItemRender('grouped', 'checkout/cart_item_renderer_grouped', 'checkout/cart/item/default.phtml')
                                 ->addItemRender('bundle', 'bundle/checkout_cart_item_renderer', 'checkout/cart/item/default.phtml');                                        
         foreach ($cart->getItems() as $_item)
-        {                                
-            if ($_item->getId() == $item_id)
-            {
-                $item_html = $cart->getItemHtml($_item);
-                break;
-            }
+        {                                            
+            $items_html .= $cart->getItemHtml($_item);
         }   
         
-        return $item_html;
+        return $items_html;
 	}
 	
 	public function getCartTolal()
@@ -255,6 +274,15 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
 	    
 	    return $layout->createBlock('checkout/cart_totals', 'checkout.cart.totals')
                                          ->setTemplate('checkout/cart/totals.phtml')  
+                                         ->renderView();
+	}
+	
+    public function getCartShipping()
+	{
+	    $layout = Mage::getSingleton('core/layout');
+	    
+	    return $layout->createBlock('checkout/cart_shipping', 'checkout.cart.shipping')
+                                         ->setTemplate('checkout/cart/shipping.phtml')  
                                          ->renderView();
 	}
 
@@ -336,7 +364,60 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
             );
             
         } catch (Mage_Core_Exception $e) {
-             $result['error'] = true;
+             $success_param = array(); 
+             if ($quoteItem){
+                 if ($quoteItem->getProduct()->getTypeInstance(true)->getSpecifyOptionMessage() == $e->getMessage()){
+                     $all_params = $params['super_attribute'];
+                                                                                                                              
+                     $productCollection = $quoteItem->getProduct()->getTypeInstance(true)->getUsedProductCollection($quoteItem->getProduct());                      
+                                           
+                     foreach ($all_params as $attribute_id => $value){
+                         $tmp_params = $success_param;
+                         $tmp_params[$attribute_id] = $value;                          
+                         $productObject = $quoteItem->getProduct()->getTypeInstance(true)->getProductByAttributes($tmp_params, $quoteItem->getProduct());
+                         if ($productObject && $productObject->getId()){
+                             $success_param[$attribute_id] = $value;
+                             $productCollection->addAttributeToFilter($attribute_id, $value);                                                          
+                         }else{
+                             
+                             $result['update_attribute'] = $attribute_id;
+                             
+                             $attribute_data = array();                                                          
+                             $attribute = null;
+                             $product = Mage::getModel('catalog/product')->load($quoteItem->getProduct()->getId());                             
+                             $product->getTypeInstance(true)->getUsedProductAttributeIds($product);                             
+                             $usedAttributes = $product->getData('_cache_instance_used_attributes');
+                             
+                             foreach ($usedAttributes as $key => $_arrtibute){
+                                 if ($key == $attribute_id){
+                                     $attribute = $_arrtibute;
+                                     break;
+                                 }
+                             }                 
+                             
+                             foreach($productCollection as $_product){
+                                 $_product = Mage::getModel('catalog/product')->load($_product->getId());
+                                 if ($_product->isSaleable()) {
+                                     $_key = $_product->getData($attribute->getProductAttribute()->getAttributeCode());
+                                                             
+                                     foreach ($attribute->getPrices() as $_v){
+                                          if ($_v['value_index'] == $_key){
+                                             $attribute_data[$_key] = $_v['label'];
+                                             break; 
+                                          }
+                                     }
+                                 }     
+                             }
+                             
+                             $result['attribute_data'] = $attribute_data;
+                             break;                               
+                         } 
+                     }                     
+                 }
+             }
+             $result['choosetext'] = Mage::helper('catalog')->__('Choose an Option...');
+             $result['success_param'] = $success_param;
+             $result['error'] = true;             
              $result['message'] = $e->getMessage();
         } catch (Exception $e) {
             $result['error'] = true;
@@ -346,21 +427,71 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
         
 	    if (!$result['error']){
 
-            if ($item_html = $this->getCartItem($item->getId())) {
-                $result['item_html'] = $item_html;
-                $result['new_item_id'] = $item->getId();
-            }    
-                
-            if ($total = $this->getCartTolal())                        
+	        if ($total = $this->getCartTolal())                        
                 $result['total'] = $total;
-        }else {
-            if ($item_html = $this->getCartItem($result['item_id'])) {
-                $result['item_html'] = $item_html;              
-            }        
+
+            if ($shipping = $this->getCartShipping())                        
+                $result['shipping'] = $shipping;     
+                
         }
+        
+        $result['items_html'] = $this->getCartItems();
 	    
 	    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-	}    
+	}
+
+	public function getProductListAction(){
+	    $result = array();
+	    $product_list = array();
+	    if ($ids = $this->getRequest()->getParam('product_ids')){             
+             
+             $helper = Mage::helper('gomage_procart');
+             
+             $ids = array_unique(explode(',', $ids));
+             
+             foreach ($ids as $_product){                 
+                 $product = Mage::getModel('catalog/product')->load($_product);                 
+                 $product_list[$product->getId()] = $helper->getProcartProductData($product);
+             }
+             
+        }
+        $result['product_list'] = $product_list;
+	    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+	}
 	
-		
+	public function removewishlistitemAction(){	    
+	    $result = array();
+	    $wishlist = Mage::getModel('wishlist/wishlist')
+                        ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomer(), true);
+        if ($wishlist){                
+            $id = (int) $this->getRequest()->getParam('item');
+            $item = Mage::getModel('wishlist/item')->load($id);
+    
+            if($item->getWishlistId() == $wishlist->getId()) {
+                try {
+                    $item->delete();
+                    $wishlist->save();
+                    Mage::helper('wishlist')->calculate();
+                    $result['top_links'] = Mage::getModel('gomage_procart/observer')->getTopLinks();
+                    $result['wishlist'] = Mage::getModel('gomage_procart/observer')->getWishlistSidebar();
+                    $result['success'] = true;
+                }
+                catch (Mage_Core_Exception $e) {                    
+                    $result['success'] = false;
+                    $result['message'] = $this->__('An error occurred while deleting the item from wishlist: %s', $e->getMessage());
+                    
+                }
+                catch(Exception $e) {          
+                    $result['success'] = false;      
+                    $result['message'] = $this->__('An error occurred while deleting the item from wishlist.');                    
+                }
+            }
+        }else{
+            $result['success'] = false;
+            $result['message'] =  $this->__('An error occurred while deleting the item from wishlist.');
+        }
+        
+	    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+	}
+			
 }

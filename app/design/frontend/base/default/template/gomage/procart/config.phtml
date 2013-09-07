@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
  ?>
@@ -16,6 +16,7 @@
 	var GomageProcartConfig = null;
     var gomage_procart_config = <?php echo $this->getConfig(); ?>;     
     var gomage_procart_qty_template = <?php echo $this->getQtyTemplate(); ?>;
+    var gomage_procart_qty_deals_template = <?php echo $this->getQtyDealsTemplate(); ?>;
     var gomage_procart_qty_cart_template = <?php echo $this->getQtyCartTemplate(); ?>;
     var gomage_procart_qty_product_template = <?php echo $this->getQtyProductTemplate(); ?>;
     var gomage_procart_continue_text = '<?php echo Mage::helper('gomage_procart')->__('Continue Shopping') ?>'; 
@@ -29,22 +30,40 @@
 		<span id="gpc_conf_win_prod_name"></span>
 		<span id="gpc_conf_win_was" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('was') ?></span>
 		<span id="gpc_conf_win_were" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('were') ?></span>
-	    <?php echo Mage::helper('gomage_procart')->__('added to your cart.') ?>
+		<span id="gpc_cw_add_to_cart" class="gpc_cw_add_to" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('added to your cart.') ?></span>
+		<span id="gpc_cw_add_to_wishlist" class="gpc_cw_add_to" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('added to wishlist.') ?></span>
+		<span id="gpc_cw_add_to_compare" class="gpc_cw_add_to" style="display: none;"><?php echo Mage::helper('gomage_procart')->__('added to compare products.') ?></span>
 	</p>
 	<div class="gpc_confirmation_window_actions">
 	<button onclick="$('gpc_confirmation_window').hide(); GomageProcartConfig.overlay.hide()" class="gpc_msg_bnt gpc_msg_bnt_cs"><span><span id="gpc_confirm_window_continue"><?php echo Mage::helper('gomage_procart')->__('Continue Shopping') ?></span></span></button>
 	<?php if (Mage::helper('gomage_procart')->isShoppingCartDisable()) : ?>
 		<button class="gpc_msg_bnt gpc_msg_bnt_ptc" onclick="setLocation('<?php echo $this->getUrl('checkout/onepage'); ?>')"><span><span id="gpc_confirm_window_checkout"><?php echo Mage::helper('gomage_procart')->__('Proceed to Checkout') ?></span></span></button>
 		<script type="text/javascript">
-		//<![CDATA[
-			var gomage_procart_checkout_text = '<?php echo Mage::helper('gomage_procart')->__('Proceed to Checkout') ?>';
+		//<![CDATA[			
+			var gomage_procart_goto_data = <?php echo Mage::helper('core')->jsonEncode(array(
+                                            					'cart' => array('text' => Mage::helper('gomage_procart')->__('Proceed to Checkout'),
+                                                                                'onclick' => "setLocation('" . $this->getUrl('checkout/onepage') . "')"),
+                                                                'wishlist' => array('text' => Mage::helper('gomage_procart')->__('Go to Wishlist'),
+                                                                                'onclick' => "setLocation('" . $this->getUrl('wishlist') . "')"),
+                                                                'compare' =>  array('text' => Mage::helper('gomage_procart')->__('Show Compare Products'),
+                                                                                'onclick' => "$('gpc_confirmation_window').hide(); GomageProcartConfig.overlay.hide();popWin('" . $this->helper('catalog/product_compare')->getListUrl() . "','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes');"),   
+                                                                        ));   
+                                            ?>			
 		//]]>
 		</script>
 	<?php else: ?>
 		<button class="gpc_msg_bnt gpc_msg_bnt_ptc" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>')"><span><span id="gpc_confirm_window_checkout"><?php echo Mage::helper('gomage_procart')->__('Go to Shopping Cart') ?></span></span></button>
 		<script type="text/javascript">
-		//<![CDATA[
-			var gomage_procart_checkout_text = '<?php echo Mage::helper('gomage_procart')->__('Go to Shopping Cart') ?>';
+		//<![CDATA[			
+			var gomage_procart_goto_data = <?php echo Mage::helper('core')->jsonEncode(array(
+                            									'cart' => array('text' => Mage::helper('gomage_procart')->__('Go to Shopping Cart'),
+                                                                                'onclick' => "setLocation('" . $this->getUrl('checkout/cart') . "')"),
+                                                                'wishlist' => array('text' => Mage::helper('gomage_procart')->__('Go to Wishlist'),
+                                                                                'onclick' => "setLocation('" . $this->getUrl('wishlist') . "')"),
+			                                                    'compare' =>  array('text' => Mage::helper('gomage_procart')->__('Show Compare Products'),
+                                                                                'onclick' => "$('gpc_confirmation_window').hide(); GomageProcartConfig.overlay.hide();popWin('" . $this->helper('catalog/product_compare')->getListUrl() . "','compare','top:0,left:0,width=820,height=600,resizable=yes,scrollbars=yes');"),   
+                                                                        ));   
+                                            ?>
 		//]]>
 		</script>
 	<?php endif; ?>

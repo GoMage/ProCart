@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
 
@@ -208,7 +208,12 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
 	public function isProCartEnable(){
 	    return (Mage::getStoreConfig('gomage_procart/general/enable') &&
 	            in_array(Mage::app()->getStore()->getWebsiteId(), $this->getAvailavelWebsites()));
-	}	
+	}
+
+    public function isCrosssellAdd(){
+	    return ((Mage::app()->getFrontController()->getRequest()->getParam('gpc_crosssell') == 1) ||
+	            (Mage::app()->getFrontController()->getRequest()->getParam('gpc_add') == 1));
+	}
 	
     public function isShoppingCartDisable(){
 	    $procart = (Mage::getStoreConfig('gomage_procart/general/disable_cart') &&
@@ -224,25 +229,32 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
 	    if (!$lightcheckout) return false;
 
 	    $lightcheckout = (Mage::helper('gomage_checkout')->getConfigData('general/disable_cart') &&
-	                      Mage::helper('gomage_checkout')->getConfigData('general/enabled'));
+	                      Mage::helper('gomage_checkout')->getConfigData('general/enabled') &&
+	                      in_array(Mage::app()->getStore()->getWebsiteId(), Mage::helper('gomage_checkout')->getAvailavelWebsites()));
 
 	    return $lightcheckout;                  
 	}
 	
     public function getProcartProductData($product){
         
-         $min_qty = $product->getStockItem()->getMinSaleQty();
-         if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE){                 
-             $max_qty = min(array($product->getStockItem()->getMaxSaleQty(), $product->getStockItem()->getQty()));
+         if ($product->getStockItem()->getManageStock() && 
+             !$product->getStockItem()->getBackorders()){
+             $min_qty = $product->getStockItem()->getMinSaleQty();
+             if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE){                 
+                 $max_qty = min(array($product->getStockItem()->getMaxSaleQty(), $product->getStockItem()->getQty()));
+             }else{
+                 $max_qty = $product->getStockItem()->getMaxSaleQty();
+             }    
+    
+             $quote = Mage::getSingleton('checkout/session')->getQuote();
+             $item = $quote->getItemByProduct($product);
+             if ($item && $qty = $item->getQty()){
+                 $max_qty = $max_qty - $qty;  
+                 if ($min_qty > $max_qty) $min_qty = $max_qty;
+             }
          }else{
+             $min_qty = $product->getStockItem()->getMinSaleQty();
              $max_qty = $product->getStockItem()->getMaxSaleQty();
-         }    
-
-         $quote = Mage::getSingleton('checkout/session')->getQuote();
-         $item = $quote->getItemByProduct($product);
-         if ($item && $qty = $item->getQty()){
-             $max_qty = $max_qty - $qty;  
-             if ($min_qty > $max_qty) $min_qty = $max_qty;
          }
          
          return array('min_qty' => intval($min_qty),
@@ -290,5 +302,11 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
         }                                
     }
     
+    public function formatColor($value){
+	    if ($value = preg_replace('/[^a-zA-Z0-9\s]/', '', $value)){
+	       $value = '#' . $value; 	        
+	    }
+	    return $value;
+	}
 	
 }

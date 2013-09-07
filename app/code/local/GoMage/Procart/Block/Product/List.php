@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */
 	
@@ -30,8 +30,12 @@ class GoMage_Procart_Block_Product_List extends Mage_Catalog_Block_Product_List{
     
     public function getAddToCartUrl($product, $additional = array()){
     
-        if (Mage::helper('gomage_procart')->isProCartEnable() && Mage::getStoreConfig('gomage_procart/qty_settings/category_page'))
+        if (Mage::helper('gomage_procart')->isProCartEnable() && Mage::getStoreConfig('gomage_procart/qty_settings/category_page')){
+            if (!isset($additional['_query'])) {
+                 $additional['_query'] = array();
+            }
             $additional['_query']['gpc_prod_id'] = $product->getId();        
+        }    
         return parent::getAddToCartUrl($product, $additional);
         
     }   

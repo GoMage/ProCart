@@ -7,12 +7,23 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.0
+ * @version      Release: 1.1
  * @since        Class available since Release 1.0
  */ 
 
 class GoMage_Procart_Model_Product_Type_Configurable extends Mage_Catalog_Model_Product_Type_Configurable
 {
+    public function getProCartAttributeActiveOptions($product, $attribute){
+        $result = array();
+        $allProducts = $this->getUsedProducts(null, $product);
+        foreach ($allProducts as $_product){
+            if ($_product->isSaleable()) {
+                 $result[] = $_product->getData($attribute->getProductAttribute()->getAttributeCode());
+            }     
+        }
+        return $result;
+    } 
+        
     public function getSelectedAttributesInfo($product = null)
     {        
         $attributes = array();
@@ -22,6 +33,8 @@ class GoMage_Procart_Model_Product_Type_Configurable extends Mage_Catalog_Model_
             $this->getUsedProductAttributeIds($product);
 
             $usedAttributes = $this->getProduct($product)->getData($this->_usedAttributes);
+            
+            $is_sidebar = (Mage::app()->getFrontController()->getRequest()->getParam('sidebar') == 1);
 
             foreach ($data as $attributeId => $attributeValue) {
                 if (isset($usedAttributes[$attributeId])) {
@@ -30,17 +43,29 @@ class GoMage_Procart_Model_Product_Type_Configurable extends Mage_Catalog_Model_
                     $value = $attribute->getProductAttribute();
                     if ($value->getSourceModel()) {
                         if (Mage::helper('gomage_procart')->isProCartEnable() &&
+                            !$is_sidebar &&
                             Mage::getStoreConfig('gomage_procart/qty_settings/cart_page') &&
                             (Mage::helper('gomage_procart')->getIsCartPage() || 
                              Mage::helper('gomage_procart')->getChangeAttributeCart() ||
-                             Mage::helper('gomage_procart')->getChangeQtyCart()))
+                             Mage::helper('gomage_procart')->getChangeQtyCart() ||
+                             Mage::helper('gomage_procart')->isCrosssellAdd() ||
+                             (Mage::app()->getFrontController()->getRequest()->getParam('gpc_cart_delete') == 1)
+                             )
+                            )
                         {                        
                             $attribute_values = $attribute->getPrices() ? $attribute->getPrices() : array();                        
                             foreach ($attribute_values as $_k => $_v){
-                                $attribute_values[$_k]['value'] = $_v['value_index'];
+                                if (in_array($_v['value_index'], $this->getProCartAttributeActiveOptions($product, $attribute))){
+                                    $attribute_values[$_k]['value'] = $_v['value_index'];
+                                }else{
+                                    unset($attribute_values[$_k]);
+                                }
                             } 
                             $select = Mage::getSingleton('core/layout')->createBlock('core/html_select')
                                         ->setClass('glg_cart_attribute_' . $attributeId)
+                                        ->setId('glg_cart_attribute_' . $product->getId() .'_'. $attributeId .'_'. $attributeValue)
+                                        ->setName('glg_cart_attribute_' . $product->getId() .'_'. $attributeId .'_'. $attributeValue)
+                                        ->setTitle($label)
                                         ->setExtraParams('onchange="GomageProcartConfig.attributeCartChange(this,'.$product->getId().')"')
                                         ->setValue($attributeValue)
                                         ->setOptions($attribute_values);

@@ -8,14 +8,13 @@
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
  * @version      Release: 1.1
- * @since        Class available since Release 1.0
+ * @since        Class available since Release 1.1
  */
 	
-class GoMage_Procart_Block_Product_Grouped_Form extends Mage_Catalog_Block_Product_View{
+class GoMage_Procart_Block_Wishlist_Links extends Mage_Wishlist_Block_Links{
+
+    public function getAParams(){
+        return 'class="top-link-wishlist"';
+    }
     
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('gomage/procart/product/grouped/form.phtml');                               
-    }     
 }
