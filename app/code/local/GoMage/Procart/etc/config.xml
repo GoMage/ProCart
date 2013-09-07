@@ -4,18 +4,18 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.2
+ * @version      Release: 1.3
  * @since        Class available since Release 1.0
  */ 
  -->
 <config>
     <modules>
         <GoMage_Procart>
-            <version>1.2</version>
+            <version>1.3</version>
         </GoMage_Procart>
     </modules>
 	<frontend>
@@ -112,7 +112,7 @@
                         <method>addProductWithError</method>
                     </gomage_procart_show_configurable_params>
                 </observers>
-            </controller_action_predispatch_catalog_product_view>         
+            </controller_action_predispatch_catalog_product_view>
             <controller_action_postdispatch_catalog_product_view>
                 <observers>
                     <gomage_procart_show_configurable_params>
@@ -172,7 +172,15 @@
                         <method>WishlistAdd</method>
                     </gomage_procart_wishlist_add>
                 </observers>
-            </wishlist_add_product>            
+            </wishlist_add_product>
+            <controller_action_postdispatch_wishlist_index_fromcart>
+                <observers>
+                    <gomage_procart_wishlist_add_fromcart>
+                        <class>gomage_procart/observer</class>
+                        <method>WishlistAddFromCart</method>
+                    </gomage_procart_wishlist_add_fromcart>
+                </observers>
+            </controller_action_postdispatch_wishlist_index_fromcart>
             <catalog_product_compare_add_product>
             	<observers>
                     <gomage_procart_compare_add>                        
@@ -206,7 +214,25 @@
                         <method>updateItemOptionsWithError</method>
                     </gomage_procart_show_configurable_params>
                 </observers>
-            </controller_action_postdispatch_checkout_cart_updateItemOptions>            
+            </controller_action_postdispatch_checkout_cart_updateItemOptions>
+            <controller_action_predispatch_checkout_cart_add>
+                <observers>
+                    <gomage_procart_check_product>
+                        <type>singleton</type>
+                        <class>gomage_procart/observer</class>
+                        <method>beforeAddToCart</method>
+                    </gomage_procart_check_product>
+                </observers>
+            </controller_action_predispatch_checkout_cart_add>
+            <controller_action_postdispatch_checkout_cart_add>
+                <observers>
+                    <gomage_procart_handle_errors>
+                        <type>singleton</type>
+                        <class>gomage_procart/observer</class>
+                        <method>handleAddToCartErrors</method>
+                    </gomage_procart_handle_errors>
+                </observers>
+            </controller_action_postdispatch_checkout_cart_add>
         </events> 
 		<blocks>
             <gomage_procart>
@@ -229,13 +255,28 @@
 	        		<cart_item_renderer_configurable>GoMage_Procart_Block_Cart_Item_Renderer_Configurable</cart_item_renderer_configurable>
 	        		<cart_crosssell>GoMage_Procart_Block_Cart_Crosssell</cart_crosssell>
 	        	</rewrite>
-            </checkout> 	
+            </checkout>
+            <downloadable>
+                <rewrite>
+                    <checkout_cart_item_renderer>GoMage_Procart_Block_Cart_Item_Renderer_Downloadable</checkout_cart_item_renderer>r
+                </rewrite>
+            </downloadable>
             <wishlist>
             	<rewrite>
             		<links>GoMage_Procart_Block_Wishlist_Links</links>
             		<customer_sidebar>GoMage_Procart_Block_Wishlist_Sidebar</customer_sidebar>
             	</rewrite>	
-            </wishlist>	           				
+            </wishlist>
+            <enterprise_wishlist>
+                <rewrite>
+                    <customer_sidebar>GoMage_Procart_Block_Wishlist_Sidebar</customer_sidebar>
+                </rewrite>
+            </enterprise_wishlist>
+            <enterprise_giftcard>
+                <rewrite>
+                    <checkout_cart_item_renderer>GoMage_Procart_Block_Cart_Item_Renderer_Giftcard</checkout_cart_item_renderer>
+                </rewrite>
+            </enterprise_giftcard>
         </blocks>
         <helpers>
 			<gomage_procart>
@@ -263,6 +304,7 @@
     			<imagealign>left</imagealign>
     			<bgcolor>#FFFFFF</bgcolor>
     			<bordercolor>#000000</bordercolor>
+    			<textcolor>#000000</textcolor>
     			<text>Updating, please wait...</text>
     		</ajaxloader>
     		<confirm_window>

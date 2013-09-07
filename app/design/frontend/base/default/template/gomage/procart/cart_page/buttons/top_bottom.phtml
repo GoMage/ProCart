@@ -1,0 +1,21 @@
+<?php
+ /**
+ * GoMage ProCart Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.3
+ * @since        Class available since Release 1.0
+ */
+ ?>
+
+<?php $helper = Mage::helper('gomage_procart'); ?>
+ 
+<div class="gpc-cart-butt-tb">
+<a title="<?php echo $helper->__('Add'); ?>" class="procart-qbv procart-ab procart-qbht" href="javascript:GomageProcartConfig.qtyCartUp(#gpc_item_id)">+</a>
+#gpc_input_cart_qty
+<a title="<?php echo $helper->__('Subtract'); ?>" class="procart-qbv procart-ab procart-qbhb" href="javascript:GomageProcartConfig.qtyCartDown(#gpc_item_id)">-</a>
+</div>

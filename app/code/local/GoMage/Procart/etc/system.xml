@@ -4,24 +4,24 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.2
+ * @version      Release: 1.3
  * @since        Class available since Release 1.0
  */
  -->
 <config>
-	<tabs>
+    <tabs>
         <gomage translate="label">
             <label>GoMage</label>
             <sort_order>200</sort_order>
         </gomage>
     </tabs>
-	<sections>		
-		<gomage_activation>
-			<label>Activation</label>
+    <sections>
+        <gomage_activation>
+            <label>Activation</label>
             <tab>gomage</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1000</sort_order>
@@ -29,37 +29,65 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-				<procart translate="label">
-					<label>GoMage ProCart v.1.2</label>
-					<frontend_type>text</frontend_type>
-					<sort_order>40</sort_order>
-					<show_in_default>1</show_in_default>
-					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					<fields>
-						<key>
-							<label>Activation Key</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>5</sort_order>
-							<show_in_default>1</show_in_default>
+                <procart translate="label">
+                    <label>GoMage ProCart v.1.3</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <key>
+                            <label>Activation Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </key>
+                        <websites translate="label">
+                            <label>Select Websites</label>
+                            <frontend_type>checkbox</frontend_type>
+                            <source_model>adminhtml/system_config_source_website</source_model>
+                            <frontend_model>gomage_procart/adminhtml_config_form_renderer_website</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </websites>
+                        <ar>
+							<frontend_type>hidden</frontend_type>
+							<sort_order>25</sort_order>
+							<show_in_default>0</show_in_default>
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>
-						</key>
-						<websites translate="label">
-							<label>Select Websites</label>
-							<frontend_type>checkbox</frontend_type>
-							<source_model>adminhtml/system_config_source_website</source_model>
-							<frontend_model>gomage_procart/adminhtml_config_form_renderer_website</frontend_model>
-							<sort_order>20</sort_order>
-							<show_in_default>1</show_in_default>
+						</ar>
+                        <time>
+							<frontend_type>hidden</frontend_type>
+							<sort_order>25</sort_order>
+							<show_in_default>0</show_in_default>
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>
-						</websites>
-					</fields>
-				</procart>
-			</groups>
-		</gomage_activation>
-		<gomage_procart>
+						</time>
+                        <installed>
+							<frontend_type>hidden</frontend_type>
+							<sort_order>25</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</installed>
+                        <count>
+							<frontend_type>hidden</frontend_type>
+							<sort_order>25</sort_order>
+							<show_in_default>0</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</count>
+                    </fields>
+                </procart>
+            </groups>
+        </gomage_activation>
+        <gomage_procart>
             <label>ProCart</label>
             <tab>gomage</tab>
             <frontend_type>text</frontend_type>
@@ -68,144 +96,166 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-            	<general translate="label">
-					<label>General</label>
-					<frontend_type>text</frontend_type>
-					<sort_order>10</sort_order>
-					<show_in_default>1</show_in_default>
-					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					<fields>
-						<enable>
-							<label>Enable ProCart</label>
-							<frontend_type>select</frontend_type>
-							<frontend_model>gomage_procart/adminhtml_config_form_renderer_enabledisable</frontend_model>
-							<source_model>gomage_procart/adminhtml_system_config_source_enabledisable</source_model>
-							<sort_order>5</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</enable>																		
-						<add_effect>
-							<label>Add to Cart Effect</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_addeffect</source_model>
-							<sort_order>35</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</add_effect>
-						<disable_cart>
-							<label>Disable Shopping Cart Page</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>45</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</disable_cart>
-					</fields>	
-				</general>	
-				<qty_settings translate="label">
-					<label>Change Qty Settings</label>
-					<frontend_type>text</frontend_type>
-					<sort_order>20</sort_order>
-					<show_in_default>1</show_in_default>
-					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					<fields>
-						<qty_view>
-							<label>Change Qty Type</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
-							<sort_order>5</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</qty_view>
-						<arrows_color>
-							<label>Arrows/Buttons Color</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>							
-							<sort_order>15</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>							
-						</arrows_color>
-						<category_page>
-							<label>Change Qty on Category Page</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>25</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>
-								<![CDATA[If it displays incorrectly set No and read <a href="http://www.gomage.com/media/extensions/procart/GoMage_ProCart_User_Manual.pdf" target="_blank" title="User Manual">User Manual</a>]]>
-							</comment>
-						</category_page>
-						<category_page_qty>
-							<label>Show Qty Box on Category Page</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>30</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>							
-						</category_page_qty>
-						<product_page>
-							<label>Change Qty on Product Page</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>35</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>
-								<![CDATA[If it displays incorrectly set No and read <a href="http://www.gomage.com/media/extensions/procart/GoMage_ProCart_User_Manual.pdf" target="_blank" title="User Manual">User Manual</a>]]>
-							</comment>
-						</product_page>
-						<cart_block>
-							<label>Change Qty in My Cart Block</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>45</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>
-								<![CDATA[If it displays incorrectly set No and read <a href="http://www.gomage.com/media/extensions/procart/GoMage_ProCart_User_Manual.pdf" target="_blank" title="User Manual">User Manual</a>]]>
-							</comment>
-						</cart_block>
-						<cart_page>
-							<label>Change Qty on Cart Page</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>55</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</cart_page>
-						<crosssell_prods>
-							<label>Change Cross-sell Products Qty</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>65</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</crosssell_prods>
-					</fields>
-				</qty_settings>
-				<ajaxloader translate="label">
-					<label>Ajax Window Settings</label>
-					<frontend_type>text</frontend_type>
-					<sort_order>30</sort_order>
-					<show_in_default>1</show_in_default>
-					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					<fields>																	
-						<loadimage translate="label">
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>Enable ProCart</label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>gomage_procart/adminhtml_config_form_renderer_enabledisable</frontend_model>
+                            <source_model>gomage_procart/adminhtml_system_config_source_enabledisable</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <add_effect>
+                            <label>Add to Cart Effect</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_addeffect</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </add_effect>
+                        <disable_cart>
+                            <label>Disable Shopping Cart Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </disable_cart>
+                    </fields>
+                </general>
+                <qty_settings translate="label">
+                    <label>Change Qty Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <arrows_color_bg_plus>
+                            <label>Plus Arrow/Button Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_bg_plus>
+                        <arrows_color_text_plus>
+                            <label>Plus Arrow/Button Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_text_plus>
+                        <arrows_color_bg_minus>
+                            <label>Minus Arrow/Button Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_bg_minus>
+                        <arrows_color_text_minus>
+                            <label>Minus Arrow/Button Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_text_minus>
+                        <category>
+                            <label>Change Qty on Category Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category>
+                        <category_page_qty>
+                            <label>Show Qty Box on Category Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category_page_qty>
+                        <product>
+                            <label>Change Qty on Product Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </product>
+                        <cart_sidebar>
+                            <label>Change Qty in My Cart Block</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart_sidebar>
+                        <cart_page>
+                            <label>Change Qty on Cart Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart_page>
+                        <crosssell_prods>
+                            <label>Change Cross-sell Products Qty</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </crosssell_prods>
+                        <category_page_popup>
+                            <label>Change Qty in Pop-up Window</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </category_page_popup>
+                    </fields>
+                </qty_settings>
+                <ajaxloader translate="label">
+                    <label>Ajax Window Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <loadimage translate="label">
                             <label>Ajax Loader View</label>
                             <frontend_type>image</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image</backend_model>
@@ -215,162 +265,172 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </loadimage>                        
+                        </loadimage>
                         <imagealign translate="label">
                             <label>Image Alignment</label>
                             <frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_imagealign</source_model>
-							<sort_order>25</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-                        </imagealign>						
-						<bgcolor>
-							<label>Background Color</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>35</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>e.g. "ffffff", "000" </comment>
-							<validate>color</validate>
-						</bgcolor>						
-						<bordercolor>
-							<label>Border Color</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>45</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>e.g. "ffffff", "000" </comment>
-							<validate>color</validate>
-						</bordercolor>						
-						<width>
-							<label>Window Width, px</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>55</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</width>						
-						<height>
-							<label>Window Height, px</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>65</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</height>						
-						<text>
-							<label>Ajax Loader Text</label>
-							<frontend_type>textarea</frontend_type>
-							<sort_order>75</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</text>						
-					</fields>
-				</ajaxloader>
-				<confirm_window translate="label">
-					<label>Confirmation Window Settings</label>
-					<frontend_type>text</frontend_type>
-					<sort_order>15</sort_order>
-					<show_in_default>1</show_in_default>
-					<show_in_website>1</show_in_website>
-					<show_in_store>1</show_in_store>
-					<fields>
-						<show_window>
-							<label>Show Confirmation Window</label>
-							<frontend_type>select</frontend_type>
-							<source_model>adminhtml/system_config_source_yesno</source_model>
-							<sort_order>5</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</show_window>
-						<auto_hide_window>
-							<label>Auto Hide Window, seconds</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>15</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</auto_hide_window>
-						<redirect_to>
-							<label>Redirect Customer to</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_confirmation_redirect</source_model>
-							<sort_order>20</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</redirect_to>
-						<shopping_button_color>
-							<label>Continue Shopping Button Color</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>
-							<sort_order>25</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</shopping_button_color>
-						<cart_button_color>
-							<label>Cart/Checkout Button Color</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>
-							<sort_order>35</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</cart_button_color>
-						<bgcolor>
-							<label>Background Color</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>45</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>e.g. "ffffff", "000" </comment>
-							<validate>color</validate>
-						</bgcolor>
-						<width>
-							<label>Window Width, px</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>55</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</width>
-						<border_size>
-							<label>Border Size, px</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>65</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</border_size>
-						<bordercolor>
-							<label>Border Color</label>
-							<frontend_type>text</frontend_type>
-							<sort_order>75</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-							<comment>e.g. "ffffff", "000" </comment>
-							<validate>color</validate>
-						</bordercolor>
-						<background_view>
-							<label>Background View</label>
-							<frontend_type>select</frontend_type>
-							<source_model>gomage_procart/adminhtml_system_config_source_confirmation_backgroundview</source_model>
-							<sort_order>85</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>1</show_in_website>
-							<show_in_store>1</show_in_store>
-						</background_view>
-					</fields>		
-				</confirm_window>			
-            </groups>	
-		</gomage_procart>    				
-	</sections>
+                            <source_model>gomage_procart/adminhtml_system_config_source_imagealign</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </imagealign>
+                        <bgcolor>
+                            <label>Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </bgcolor>
+                        <bordercolor>
+                            <label>Border Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </bordercolor>
+                        <width>
+                            <label>Window Width, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+                        <height>
+                            <label>Window Height, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                        <text>
+                            <label>Ajax Loader Text</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text>
+                        <textcolor>
+                            <label>Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>47</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </textcolor>
+                    </fields>
+                </ajaxloader>
+                <confirm_window translate="label">
+                    <label>Confirmation Window Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <show_window>
+                            <label>Show Confirmation Window</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_window>
+                        <auto_hide_window>
+                            <label>Auto Hide Window, seconds</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_hide_window>
+                        <redirect_to>
+                            <label>Redirect Customer to</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_confirmation_redirect</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </redirect_to>
+                        <shopping_button_color>
+                            <label>Continue Shopping Button Color</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </shopping_button_color>
+                        <cart_button_color>
+                            <label>Cart/Checkout Button Color</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart_button_color>
+                        <bgcolor>
+                            <label>Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </bgcolor>
+                        <width>
+                            <label>Window Width, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+                        <border_size>
+                            <label>Border Size, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </border_size>
+                        <bordercolor>
+                            <label>Border Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </bordercolor>
+                        <background_view>
+                            <label>Background View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_confirmation_backgroundview</source_model>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </background_view>
+                    </fields>
+                </confirm_window>
+            </groups>
+        </gomage_procart>
+    </sections>
 </config>

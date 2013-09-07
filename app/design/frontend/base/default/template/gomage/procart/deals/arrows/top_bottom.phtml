@@ -3,17 +3,17 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2011 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.2
+ * @version      Release: 1.3
  * @since        Class available since Release 1.1
  */
  ?>
 
 <?php $helper = Mage::helper('gomage_procart'); ?>
 
-<a title="<?php echo $helper->__('Add'); ?>" class="procart-ab procart-varr procart-tarr" href="javascript:GomageProcartConfig.qtyUp(#gpc_prod_id, #verification_qty, '#deals_id')">up</a>
+<a title="<?php echo $helper->__('Add'); ?>" class="procart-ab procart-varr procart-tarr" href="javascript:GomageProcartConfig.qtyUp(#gpc_prod_id, #verification_qty, '#deals_id')">+</a>
 <input class="input-text qty procart-qty" type="text" id="gpc_prod_id_#deals_id" value="1" />
-<a title="<?php echo $helper->__('Subtract'); ?>" class="procart-ab procart-varr procart-barr" href="javascript:GomageProcartConfig.qtyDown(#gpc_prod_id, #verification_qty, '#deals_id')">down</a>
+<a title="<?php echo $helper->__('Subtract'); ?>" class="procart-ab procart-varr procart-barr" href="javascript:GomageProcartConfig.qtyDown(#gpc_prod_id, #verification_qty, '#deals_id')">-</a>

@@ -60,7 +60,7 @@ GcpWindow.prototype = {
       wiredDrag:         false,
       closeOnEsc:        true,
       closeCallback:     null,
-      destroyOnClose:    false,
+      destroyOnClose:    true,
       gridX:             1, 
       gridY:             1      
     }, arguments[optionIndex] || {});
