@@ -1,3 +1,15 @@
+/**
+* GoMage ProCart Extension
+*
+* @category     Extension
+* @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
+* @author       GoMage
+* @license      http://www.gomage.com/license-agreement/  Single domain license
+* @terms of use http://www.gomage.com/terms-of-use
+* @version      Release: 2.0
+* @since        Available since Release 1.0
+*/
+
 /* Overlays */
 #gomage-cartpro-overlay,
 .overlay_gomage_cp{
@@ -110,7 +122,6 @@
 	padding:5px 10px;
 	height:auto !important;
 	width:auto !important;
-	max-height:480px !important;
 	background:none;
   position:relative;
 }
@@ -324,141 +335,29 @@ button.gpc_msg_bnt::-moz-focus-inner,#gcp_configurable_add_to_cart button.btn-ca
 button.gpc_msg_bnt,#gcp_configurable_add_to_cart button.btn-cart{ -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
 button.gpc_msg_bnt,#gcp_configurable_add_to_cart button.btn-cart{overflow:visible; width:auto; border:0; padding:0; margin:0; background:none; cursor:pointer;}
 
-button.gpc_msg_bnt span,#gcp_configurable_add_to_cart button.btn-cart span{ display:block; height:25px !important; border:0; background-color:transparent; background-image:url(../../images/gomage/procart/button_bg.png); background-repeat:repeat; background-position:0 0; padding:0 0 0 10px !important; font:700 12px/25px Arial,Helvetica,sans-serif !important; text-align:center; white-space:nowrap; color:#fff; }
-button.gpc_msg_bnt span span,#gcp_configurable_add_to_cart button.btn-cart span span{ padding:0; padding:0 10px 0 0 !important; background-position:100% 0;}
-
-	/* black */
-.gpc-confw-buttoncs-black button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-black button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-black button.btn-cart span{
-	background-position:0 0;
-}
-.gpc-confw-buttoncs-black button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-black button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-black button.btn-cart span span{
-	background-position:100% 0;
-}
-	/* blue */
-.gpc-confw-buttoncs-blue button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-blue button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-blue button.btn-cart span{
-	background-position:0 -150px;
-}
-.gpc-confw-buttoncs-blue button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-blue button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-blue button.btn-cart span span{
-	background-position:100% -150px;
-}
-	/* brown */
-.gpc-confw-buttoncs-brown button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-brown button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-brown button.btn-cart span{
-	background-position:0 -175px;
-}
-.gpc-confw-buttoncs-brown button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-brown button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-brown button.btn-cart span span{
-	background-position:100% -175px;
-}
-	/* gray */
-.gpc-confw-buttoncs-gray button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-gray button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-gray button.btn-cart span{
-	background-position:0 -250px;
-}
-.gpc-confw-buttoncs-gray button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-gray button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-gray button.btn-cart span span{
-	background-position:100% -250px;
-}
-	/* green */
-.gpc-confw-buttoncs-green button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-green button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-green  button.btn-cart span{
-	background-position:0 -275px;
-}
-.gpc-confw-buttoncs-green button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-green button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-green  button.btn-cart span span{
-	background-position:100% -275px;
-}
-	/* light-blue */
-.gpc-confw-buttoncs-light-blue button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-light-blue button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-light-blue button.btn-cart span{
-	background-position:0 -25px;
-}
-.gpc-confw-buttoncs-light-blue button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-light-blue button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-light-blue button.btn-cart span span{
-	background-position:100% -25px;
-}
-	/* light-green */
-.gpc-confw-buttoncs-light-green button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-light-green button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-light-green button.btn-cart span{
-	background-position:0 -200px;
-}
-.gpc-confw-buttoncs-light-green button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-light-green button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-light-green button.btn-cart span span{
-	background-position:100% -200px;
-}
-	/* Orange */
-.gpc-confw-buttoncs-orange button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-orange button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-orange button.btn-cart span{
-	background-position:0 -50px;
-}
-.gpc-confw-buttoncs-orange button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-orange button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-orange button.btn-cart span span{
-	background-position:100% -50px;
-}
-	/* red */
-.gpc-confw-buttoncs-red button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-red button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-red button.btn-cart span{
-	background-position:0 -100px;
-}
-.gpc-confw-buttoncs-red button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-red button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-red button.btn-cart span span{
-	background-position:100% -100px;
-}
-	/* pink */
-.gpc-confw-buttoncs-pink button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-pink button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-pink button.btn-cart span{
-	background-position:0 -75px;
-}
-.gpc-confw-buttoncs-pink button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-pink button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-pink button.btn-cart span span{
-	background-position:100% -75px;
-}
-	/* violet */
-.gpc-confw-buttoncs-violet button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-violet button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-violet button.btn-cart span{
-	background-position:0 -225px;
-}
-.gpc-confw-buttoncs-violet button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-violet button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-violet button.btn-cart span span{
-	background-position:100% -225px;
-}
-	/* yellow */
-.gpc-confw-buttoncs-yellow button.gpc_msg_bnt_cs span,
-.gpc-confw-buttongtsc-yellow button.gpc_msg_bnt_ptc span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-yellow button.btn-cart span{
-	background-position:0 -125px;
-}
-.gpc-confw-buttoncs-yellow button.gpc_msg_bnt_cs span span,
-.gpc-confw-buttongtsc-yellow button.gpc_msg_bnt_ptc span span,
-#gcp_configurable_add_to_cart.gpc-confw-buttons-yellow button.btn-cart span span{
-	background-position:100% -125px;
-}
+button.gpc_msg_bnt span,
+#gcp_configurable_add_to_cart button.btn-cart span{ 
+  display:block; 
+  height:25px !important; 
+  border:0; 
+  padding:0 !important; 
+  font:700 12px/25px Arial,Helvetica,sans-serif !important;
+  text-align:center; 
+  white-space:nowrap;
+  color:#fff; 
+  background: none;
+  }
+button.gpc_msg_bnt span span,
+#gcp_configurable_add_to_cart button.btn-cart span span{ 
+  padding:0; 
+  padding:0 10px !important; 
+  background-position:100% 0;
+  border: 1px solid #f3f3f3;
+  height: 23px !important;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip   : padding-box;
+  background-clip        : padding-box;
+  }
 
 /* Qty */
 input.procart-qty,
@@ -644,11 +543,60 @@ input.procart-qty,
 .gpc-arrbut-cross-btn-right-small .cart .crosssell .gpc_qty_edit{
   width:44px;
   }
-[class*="gpc-arrbut-cross"] .cart .crosssell .product-details{
+/*[class*="gpc-arrbut-cross"] .cart .crosssell .product-details{
   float:left;
   width:168px;
   margin-left:12px;
+}*/
+.gpc-arrbut-cross-arr-lr .cart .crosssell .gpc_qty_edit,
+.gpc-arrbut-cross-btn-lr .cart .crosssell .gpc_qty_edit,
+.gpc-arrbut-cross-btn-right-small .cart .crosssell .gpc_qty_edit,
+.gpc-arrbut-cross-btn-right .cart .crosssell .gpc_qty_edit{
+  margin-top: 9px;
+  }
+.gpc-arrbut-cross-btn-tb .cart .crosssell button.btn-cart{
+  margin-top: 17px !important;
+  }
+
+/* Upsell */
+[class*="gpc-arrbut-upsell"] .box-up-sell button.btn-cart{
+  float: left;
+  margin:0 6px 0 0;
 }
+[class*="gpc-arrbut-upsell"] .box-up-sell .add-to-cart .qty{
+  float: none;
+  }
+[class*="gpc-arrbut-upsell"] .product-view .box-up-sell .gpc_qty_edit{
+  float: left;
+  float: left;
+  margin-right: 5px;
+  position: relative;
+  width: 33px;  
+  margin-top: -9px;
+  }
+.gpc-arrbut-upsell-arr-lr .product-view .box-up-sell .gpc_qty_edit{
+  width: 60px;
+  margin-top: 0 !important;
+  }
+.gpc-arrbut-upsell-btn-lr .product-view .box-up-sell .gpc_qty_edit,
+.gpc-arrbut-upsell-btn-right .product-view .box-up-sell .gpc_qty_edit{
+  width: 72px;
+  margin-top: 0 !important;
+  }
+.gpc-arrbut-upsell-btn-right-small .product-view .box-up-sell .gpc_qty_edit{
+  width: 50px;
+  margin-top: 0 !important;
+  }
+.gpc-arrbut-upsell-arr-lr .product-view .box-up-sell .gpc_qty_edit .qty,
+.gpc-arrbut-upsell-btn-lr .product-view .box-up-sell .gpc_qty_edit .qty,
+.gpc-arrbut-upsell-btn-right-small .product-view .box-up-sell .gpc_qty_edit .qty,
+.gpc-arrbut-upsell-btn-right .product-view .box-up-sell .gpc_qty_edit .qty{
+  float: left;
+  }
+.gpc-arrbut-upsell-btn-tb .box-up-sell button.btn-cart{
+  margin-top: 8px;
+  }
+
 
 	/* Sidebar block */
 .gpc-arrbut-mcb-arr-tb .top-cart .product-details input.procart-qty,
@@ -1082,6 +1030,9 @@ input.procart-qty,
 .gpc-arrbut-mcb-btn-right-small .top-cart .block-content table td{
   width:60px;
   }
+.top-cart .truncated .show .item-options{
+  left: -200px;
+  }
 
 /* Clears */
 #gcp_configurable_add_to_cart .product-options dt:after,
@@ -1139,4 +1090,29 @@ input.procart-qty,
   }
 .gpc-arrbut-popup-btn-right-small #gcp_configurable_add_to_cart .add-to-cart .gpc_qty_edit{
   /width:44px;
+  }
+  
+/* Ultimento
+-------------------------------------------------- */
+.gpc-arrbut-mcb-arr-lr #customer-nav-cart .mini-cart .price + span,
+.gpc-arrbut-mcb-btn-right-small #customer-nav-cart .mini-cart .price + span{
+  width: 60px;
+  }
+.gpc-arrbut-mcb-btn-lr #customer-nav-cart .mini-cart .price + span{
+  width: 70px;
+  }
+.gpc-arrbut-mcb-btn-right #customer-nav-cart .mini-cart .price + span{
+  width: 70px;
+  }
+.gpc-arrbut-mcb-arr-lr #customer-nav-cart .mini-cart .procart-qty,
+.gpc-arrbut-mcb-btn-lr #customer-nav-cart .mini-cart .procart-qty,
+.gpc-arrbut-mcb-btn-right-small #customer-nav-cart .mini-cart .procart-qty,
+.gpc-arrbut-mcb-btn-right #customer-nav-cart .mini-cart .procart-qty,
+.gpc-arrbut-mcb-arr-lr #customer-nav-cart .mini-cart .procart-harr,
+.gpc-arrbut-mcb-btn-lr #customer-nav-cart .mini-cart .procart-qbh,
+.gpc-arrbut-mcb-btn-right #customer-nav-cart .mini-cart .procart-qb-right{
+  float: left;
+  }
+.gpc-arrbut-mcb-arr-tb #customer-nav-cart .mini-cart .price + span{
+  width: 33px;
   }

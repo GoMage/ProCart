@@ -4,29 +4,30 @@
  * GoMage Procart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3
+ * @version      Release: 2.0
  * @since        Class available since Release 1.3
  */
 
 /**
  * Retrieving of view blocks by handle for ajax responses
  */
-class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
+class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract
+{
 
     private $_layouts = array();
 
-    private function _setLayoutByHandle($handle,$layout)
+    private function _setLayoutByHandle($handle, $layout)
     {
         $this->_layouts[$handle] = $layout;
     }
 
     private function _getLayoutByHandle($handle)
     {
-        return $this->_layouts[$handle];
+        return isset($this->_layouts[$handle]) ? $this->_layouts[$handle] : false;
     }
 
     /**
@@ -35,10 +36,10 @@ class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
      */
     private function _loadLayout($handle = 'default')
     {
-        if(!$this->_getLayoutByHandle($handle)){
+        if (!$this->_getLayoutByHandle($handle)) {
             /* @var $layout Mage_Core_Model_Layout */
-            $layout = Mage::getModel('core/layout');
-            $_handles = explode(',',$handle);
+            $layout   = Mage::getModel('core/layout');
+            $_handles = explode(',', $handle);
             $layout->getUpdate()->load($_handles);
             $layout->generateXml()->generateBlocks();
             $this->_setLayoutByHandle($handle, $layout);
@@ -53,12 +54,13 @@ class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
      * @param $type 'top_methods' or 'methods'
      * @return string block html
      */
-    public function  getCartCheckoutMethods($type){
+    public function  getCartCheckoutMethods($type)
+    {
         $layout = $this->_loadLayout('checkout_cart_index');
-        $html = '';
-        foreach($layout->getBlock('checkout.cart.'.$type)->getSortedChildBlocks() as $child){
+        $html   = '';
+        foreach ($layout->getBlock('checkout.cart.' . $type)->getSortedChildBlocks() as $child) {
             $tmp = $child->toHtml();
-            if(!empty($tmp)){
+            if (!empty($tmp)) {
                 $html .= $layout->createBlock('core/text_tag')
                     ->setTagName('li')
                     ->setContents($tmp)
@@ -67,7 +69,7 @@ class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
         }
         return $layout->createBlock('core/text_tag')
             ->setTagName('ul')
-            ->setTagParam('class','checkout-types')
+            ->setTagParam('class', 'checkout-types')
             ->setContents($html)
             ->toHtml();
     }
@@ -75,9 +77,15 @@ class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
     /**
      * @return bool|string
      */
-    public function getCrosssell(){
+    public function getCrosssell()
+    {
         $layout = $this->_loadLayout('checkout_cart_index');
-        return $layout->getBlock('checkout.cart.crosssell')->toHtml();
+
+        if ($block = $layout->getBlock('checkout.cart.crosssell')) {
+            return $block->toHtml();
+        }
+
+        return "";
     }
 
     /**
@@ -86,7 +94,12 @@ class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
     public function getWishlistTopLink()
     {
         $layout = $this->_loadLayout();
-        return $layout->getBlock('wishlist_link')->toHtml();
+
+        if ($block = $layout->getBlock('wishlist_link')) {
+            return $block->toHtml();
+        }
+
+        return "";
     }
 
     /**
@@ -95,6 +108,22 @@ class GoMage_Procart_Helper_Blocks extends Mage_Core_Helper_Abstract{
     public function getShoppingCartBlock()
     {
         $layout = $this->_loadLayout('checkout_cart_index');
-        return $layout->getBlock('checkout.cart');
+
+        if ($block = $layout->getBlock('checkout.cart')) {
+            return $block;
+        }
+
+        return false;
+    }
+
+    public function getRewardsPoints()
+    {
+        $layout = $this->_loadLayout('checkout_cart_index');
+
+        if ($block = $layout->getBlock('rewards_points_cart_minibox')) {
+            return $block->toHtml();
+        }
+
+        return false;
     }
 }

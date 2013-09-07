@@ -4,11 +4,11 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3
+ * @version      Release: 2.0
  * @since        Class available since Release 1.0
  */
  -->
@@ -23,7 +23,6 @@
     		<action method="addJs" ifconfig="gomage_procart/general/enable"><script>prototype/effects.js</script></action>
     		<action method="addJs" ifconfig="gomage_procart/general/enable"><script>gomage/procart-window.js</script></action>
     		<action method="addJs" ifconfig="gomage_procart/general/enable"><script>varien/product.js</script></action>
-            <action method="addJs" ifconfig="gomage_procart/general/enable"><script>varien/configurable.js</script></action>
             <action method="addItem" ifconfig="gomage_procart/general/enable"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem" ifconfig="gomage_procart/general/enable"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem" ifconfig="gomage_procart/general/enable"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
@@ -44,10 +43,20 @@
     	<reference name="after_body_start">
     		<block type="gomage_procart/product_view" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" before="-" />
     	</reference>
+        <reference name="right">
+            <remove name="catalog.product.related" />
+            <block type="catalog/product_list_related" name="gomage.product.related" before="-" template="gomage/procart/product/list/related.phtml"/>
+        </reference>
+
     </catalog_product_view>
     <review_product_list>
         <reference name="after_body_start">
             <block type="gomage_procart/product_view" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" before="-" />
         </reference>
     </review_product_list>
+    <checkout_cart_index>
+        <reference name="after_body_start">
+            <block type="gomage_procart/product_cart" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" after="gomage.procart.config" />
+        </reference>
+    </checkout_cart_index>
 </layout>

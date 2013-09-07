@@ -1,0 +1,38 @@
+<?php
+/**
+ * GoMage ProCart Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 2.0
+ * @since        Class available since Release 1.0
+ */
+?>
+<?php
+    $_item = $this->getItem();
+?>
+<?php if ($_item): ?>
+    <?php if(!$_item->isComposite() && $_item->isSaleable()): ?>
+        <?php if (!$_item->getRequiredOptions()): ?>
+            <input type="checkbox" class="checkbox related-checkbox" id="related-checkbox<?php echo $_item->getId() ?>" name="related_products[]" value="<?php echo $_item->getId() ?>" />
+        <?php endif; ?>
+    <?php endif; ?>
+    <div class="item-info">
+        <a href="<?php echo $this->getProductUrl($_item) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(100) ?>" width="100" height="100" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+        <div class="product-details">
+            <h3 class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></h3>
+            <?php echo $this->getPriceHtml($_item, true, '-related') ?>
+
+            <?php if($_item->isSaleable() && Mage::getStoreConfigFlag('gomage_procart/qty_settings/related_prods') && Mage::helper('gomage_procart')->isProCartEnable()): ?>
+                <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+            <?php endif; ?>
+
+            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                <p><a href="<?php echo $this->getAddToWishlistUrl($_item) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></p>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif;?>

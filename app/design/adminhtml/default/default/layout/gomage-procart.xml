@@ -4,11 +4,11 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3
+ * @version      Release: 2.0
  * @since        Class available since Release 1.1
  */ 
  -->
@@ -17,6 +17,8 @@
 		<reference name="head">    		
     		<action method="addJs"><script>jscolor/jscolor.js</script></action>
     		<action method="addJs"><script>jscolor/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>gomage/procart/admin/config.js</script></action>
+            <action method="addCss"><name>css/gomage/procart.css</name></action>
     	</reference>
-    </default>    
+    </default>
 </layout>

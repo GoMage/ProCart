@@ -179,7 +179,6 @@ GcpWindow.prototype = {
   
   // Destructor
   destroy: function() {
-    this._notify("onDestroy");
     Event.stopObserving(this.topbar, "mousedown", this.eventMouseDown);
     Event.stopObserving(this.bottombar, "mousedown", this.eventMouseDown);
     Event.stopObserving(this.content, "mousedown", this.eventMouseDownContent);
@@ -222,7 +221,7 @@ GcpWindow.prototype = {
   	    }  
   	    this.element.id = 'gpc_win_' + new Date().getTime();
     }
-        
+    this._notify("onDestroy");
     GcpWindows.unregister(this);      
 
   },
@@ -890,18 +889,6 @@ GcpWindow.prototype = {
       this.doNotNotifyHide = true;
       this.hide();
       this.doNotNotifyHide = false;
-      if ($('product_addtocart_form') && (typeof(productAddToCartForm) != 'undefined') &&
-    		  $('customer-reviews')){
-    	  
-    	    $('product_addtocart_form').onsubmit = function(){
-			    return false;
-			};
-			productAddToCartForm.submit = function(){
-				if (productAddToCartForm.validator.validate()){
-					GomageProcartConfig.addtoCartProduct();					
-				}
-			}
-      }
       this._notify("onClose");
     }
   },

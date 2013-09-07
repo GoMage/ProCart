@@ -33,21 +33,31 @@
  */
 class GoMage_Procart_Block_Product_Viewed extends Mage_Reports_Block_Product_Viewed
 {
-	public function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->setTemplate('gomage/procart/product/home_product_viewed.phtml');
     }
-	
-    public function getAddToCartUrl($product, $additional = array()){
 
-        if (Mage::helper('gomage_procart')->isProCartEnable()){
+    public function getAddToCartUrl($product, $additional = array())
+    {
+        if (Mage::helper('gomage_procart')->isProCartEnable()) {
+            if (!isset($additional['_escape'])) {
+                $additional['_escape'] = true;
+            }
             if (!isset($additional['_query'])) {
                 $additional['_query'] = array();
             }
             $additional['_query']['gpc_prod_id'] = $product->getId();
+
+            $url = parent::getAddToCartUrl($product, $additional);
+
+            if (strpos($url, 'gpc_prod_id') === false) {
+                $url = $url . '?gpc_prod_id=' . $product->getId();
+                return $url;
+            }
+
         }
         return parent::getAddToCartUrl($product, $additional);
-
     }
 }

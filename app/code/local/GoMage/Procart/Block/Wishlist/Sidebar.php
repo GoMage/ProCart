@@ -3,11 +3,11 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3
+ * @version      Release: 2.0
  * @since        Class available since Release 1.1
  */
 
@@ -23,8 +23,18 @@ class GoMage_Procart_Block_Wishlist_Sidebar extends Mage_Wishlist_Block_Customer
                     'item'=>$item->getWishlistItemId()
                 )
             ) . '\')';
-        }else{ 
+        }else{
             return parent::getItemRemoveUrl($item);
         }
+    }
+
+    public function addPriceBlockTypeBundle($type, $block = '', $template = '')
+    {
+        $this->_priceBlockTypes[$type] = array(
+            'block' => $block,
+            'template' => $template
+        );
+
+        return $this;
     }
 }

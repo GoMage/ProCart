@@ -4,11 +4,11 @@
  * GoMage ProCart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2012 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3
+ * @version      Release: 2.0
  * @since        Class available since Release 1.0
  */
  -->
@@ -30,7 +30,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <procart translate="label">
-                    <label>GoMage ProCart v.1.3</label>
+                    <label>GoMage ProCart v.2.0</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>40</sort_order>
                     <show_in_default>1</show_in_default>
@@ -55,10 +55,68 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </websites>
+                        <ar>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ar>
+                        <time>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </time>
+                        <installed>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </installed>
+                        <count>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </count>
                     </fields>
                 </procart>
             </groups>
         </gomage_activation>
+        <gomage_notification>
+            <label>Notifications</label>
+            <tab>gomage</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <notification>
+                    <label>Notifications</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>I'd like to get advertising by GoMage</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                    </fields>
+                </notification>
+            </groups>
+        </gomage_notification>
         <gomage_procart>
             <label>ProCart</label>
             <tab>gomage</tab>
@@ -95,6 +153,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </add_effect>
+                        <slide_destination>
+                            <label>Slide Destination</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_slidedestination</source_model>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><add_effect>2</add_effect></depends>
+                        </slide_destination>
                         <disable_cart>
                             <label>Disable Shopping Cart Page</label>
                             <frontend_type>select</frontend_type>
@@ -114,46 +182,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <arrows_color_bg_plus>
-                            <label>Plus Arrow/Button Background Color</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>15</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>e.g. "ffffff", "000" </comment>
-                            <validate>color</validate>
-                        </arrows_color_bg_plus>
-                        <arrows_color_text_plus>
-                            <label>Plus Arrow/Button Text Color</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>17</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>e.g. "ffffff", "000" </comment>
-                            <validate>color</validate>
-                        </arrows_color_text_plus>
-                        <arrows_color_bg_minus>
-                            <label>Minus Arrow/Button Background Color</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>19</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>e.g. "ffffff", "000" </comment>
-                            <validate>color</validate>
-                        </arrows_color_bg_minus>
-                        <arrows_color_text_minus>
-                            <label>Minus Arrow/Button Text Color</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>20</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>e.g. "ffffff", "000" </comment>
-                            <validate>color</validate>
-                        </arrows_color_text_minus>
                         <category>
                             <label>Change Qty on Category Page</label>
                             <frontend_type>select</frontend_type>
@@ -199,15 +227,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </cart_page>
-                        <crosssell_prods>
-                            <label>Change Cross-sell Products Qty</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
-                            <sort_order>65</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </crosssell_prods>
                         <category_page_popup>
                             <label>Change Qty in Pop-up Window</label>
                             <frontend_type>select</frontend_type>
@@ -217,8 +236,135 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </category_page_popup>
+                        <crosssell_prods>
+                            <label>Change Cross-sell Products Qty</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>66</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </crosssell_prods>
+                        <upsell_prods>
+                            <label>Change Up-sell Products Qty</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_procart/adminhtml_system_config_source_qtyview</source_model>
+                            <sort_order>67</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </upsell_prods>
+                        <related_prods>
+                            <label>Add Related Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>68</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </related_prods>
                     </fields>
                 </qty_settings>
+                <skin_qty_button_design>
+                    <label>Add Quantity Button Design</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>21</sort_order>
+                    <fields>
+                        <arrows_color_bg_plus>
+                            <label>Add Button Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_bg_plus>
+                        <mouse_over_bg_color>
+                            <label>Mouse Over Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_bg_color>
+                        <arrows_color_text_plus>
+                            <label>Add Button Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_text_plus>
+                        <mouse_over_txt_color>
+                            <label>Mouse Over Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_txt_color>
+                    </fields>
+                </skin_qty_button_design>
+                <skin_detract_qty_button_design>
+                    <label>Detract Quantity Button Design</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>22</sort_order>
+                    <fields>
+                        <arrows_color_bg_minus>
+                            <label>Detract Button Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_bg_minus>
+                        <mouse_over_bg_color>
+                            <label>Mouse Over Background Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_bg_color>
+                        <arrows_color_text_minus>
+                            <label>Detract Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </arrows_color_text_minus>
+                        <mouse_over_txt_color>
+                            <label>Mouse Over Text Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_txt_color>
+                    </fields>
+                </skin_detract_qty_button_design>
                 <ajaxloader translate="label">
                     <label>Ajax Window Settings</label>
                     <frontend_type>text</frontend_type>
@@ -337,24 +483,62 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </redirect_to>
-                        <shopping_button_color>
-                            <label>Continue Shopping Button Color</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>
-                            <sort_order>25</sort_order>
+                        <continue_btn_txt>
+                            <label>Continue Button Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </shopping_button_color>
-                        <cart_button_color>
-                            <label>Cart/Checkout Button Color</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>gomage_procart/adminhtml_system_config_source_confirmation_color</source_model>
-                            <sort_order>35</sort_order>
+                            <comment>e.g. "Continue Shopping" </comment>
+                        </continue_btn_txt>
+                        <cart_btn_txt>
+                            <label>Cart Button Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </cart_button_color>
+                            <comment>e.g. "Go to Shopping Cart" </comment>
+                        </cart_btn_txt>
+                        <checkout_btn_txt>
+                            <label>Checkout Button Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "Proceed to Checkout" </comment>
+                        </checkout_btn_txt>
+                        <wishlist_btn_txt>
+                            <label>Wishlist Button Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "Go to Wishlist" </comment>
+                        </wishlist_btn_txt>
+                        <compare_btn_txt>
+                            <label>Compare Products Button Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "Show Compare Products" </comment>
+                        </compare_btn_txt>
+                    </fields>
+                </confirm_window>
+
+                <confirm_wind translate="label">
+                    <label>Confirmation Window</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>16</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
                         <bgcolor>
                             <label>Background Color</label>
                             <frontend_type>text</frontend_type>
@@ -373,6 +557,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </width>
+                        <max_win_height>
+                            <label>Maximum Window Height, px</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>56</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_win_height>
                         <border_size>
                             <label>Border Size, px</label>
                             <frontend_type>text</frontend_type>
@@ -392,7 +584,7 @@
                             <validate>color</validate>
                         </bordercolor>
                         <background_view>
-                            <label>Background View</label>
+                            <label>Background Color Behind Window </label>
                             <frontend_type>select</frontend_type>
                             <source_model>gomage_procart/adminhtml_system_config_source_confirmation_backgroundview</source_model>
                             <sort_order>85</sort_order>
@@ -401,7 +593,148 @@
                             <show_in_store>1</show_in_store>
                         </background_view>
                     </fields>
-                </confirm_window>
+                </confirm_wind>
+
+                <continue_btn_design translate="label">
+                    <label>Continue Button Design</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>17</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <shopping_button_color>
+                            <label>Continue Button Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </shopping_button_color>
+                        <gradient translate="label">
+                            <label>Use Gradient</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </gradient>
+                        <shopping_button_color2>
+                            <label>Continue Button Color 2</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>47</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><gradient>1</gradient></depends>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </shopping_button_color2>
+                        <mouse_over_bg_color>
+                            <label>Mouse Over Backgroung Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>48</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_bg_color>
+                        <mouse_over_bg_color2>
+                            <label>Mouse Over Backgroung Color 2</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>49</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><gradient>1</gradient></depends>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_bg_color2>
+                        <button_radius>
+                            <label>Button Radius</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "4"</comment>
+                        </button_radius>
+                    </fields>
+                </continue_btn_design>
+                <cart_button_design translate="label">
+                    <label>Cart/Checkout Button Design</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>18</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <cart_btn_color>
+                            <label>Cart/Checkout Button Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </cart_btn_color>
+                        <gradient translate="label">
+                            <label>Use Gradient</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </gradient>
+                        <cart_btn_color2>
+                            <label>Cart/Checkout Button Color 2</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>47</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><gradient>1</gradient></depends>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </cart_btn_color2>
+                        <mouse_over_bg_color>
+                            <label>Mouse Over Backgroung Color</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>48</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_bg_color>
+                        <mouse_over_bg_color2>
+                            <label>Mouse Over Backgroung Color 2</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>49</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><gradient>1</gradient></depends>
+                            <comment>e.g. "ffffff", "000" </comment>
+                            <validate>color</validate>
+                        </mouse_over_bg_color2>
+                        <button_radius>
+                            <label>Button Radius</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>e.g. "4"</comment>
+                        </button_radius>
+                    </fields>
+                </cart_button_design>
             </groups>
         </gomage_procart>
     </sections>
