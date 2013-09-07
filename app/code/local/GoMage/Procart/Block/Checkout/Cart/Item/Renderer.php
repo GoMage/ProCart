@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.0
  */ 
 
@@ -18,7 +18,7 @@ class GoMage_Procart_Block_Checkout_Cart_Item_Renderer extends Mage_Bundle_Block
     {                       
          $rendered = $this->getRenderedBlock();
          $helper = Mage::helper('gomage_procart');
-         if ($rendered && ($rendered->getNameInLayout() == 'cart_sidebar') &&
+         if ($rendered && ($rendered->getNameInLayout() == 'cart_sidebar' || $rendered->getName() == 'cart_sidebar') &&
              $helper->isProCartEnable() && Mage::getStoreConfig('gomage_procart/qty_settings/cart_block'))
          {                    
 
@@ -56,7 +56,8 @@ class GoMage_Procart_Block_Checkout_Cart_Item_Renderer extends Mage_Bundle_Block
         $is_cart = ($helper->getIsCartPage() || $helper->getChangeAttributeCart() || 
                     $helper->getChangeQtyCart() || $helper->isCrosssellAdd());
         if ($helper->isProCartEnable() &&
-            ((Mage::getStoreConfig('gomage_procart/qty_settings/cart_block') && $rendered && ($rendered->getNameInLayout() == 'cart_sidebar')) ||
+            ((Mage::getStoreConfig('gomage_procart/qty_settings/cart_block') && $rendered && 
+             ($rendered->getNameInLayout() == 'cart_sidebar' || $rendered->getName() == 'cart_sidebar')) ||
              (Mage::getStoreConfig('gomage_procart/qty_settings/cart_page') && $is_cart) )){        
             return 'javascript:GomageProcartConfig.deleteItem(\'' . $this->getUrl(
                 'checkout/cart/delete',

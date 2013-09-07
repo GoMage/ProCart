@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.0
  */
 
@@ -216,6 +216,12 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
 	}
 	
     public function isShoppingCartDisable(){
+    	    	
+    	$quote = Mage::getSingleton('checkout/session')->getQuote();
+    	if (!$quote->hasItems()) {
+    		return false;
+    	}
+    	
 	    $procart = (Mage::getStoreConfig('gomage_procart/general/disable_cart') &&
 	                $this->isProCartEnable());
 	    if ($procart) return true;
@@ -261,7 +267,8 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract{
                       'max_qty' => intval($max_qty),
                       'name' => $product->getName(),
                       'is_simple' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE ? 1 : 0),
-                      'is_grouped' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED ? 1 : 0)    
+                      'is_grouped' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED ? 1 : 0),
+         			  'product_url' => $product->getProductUrl()    
                  );
     }
     

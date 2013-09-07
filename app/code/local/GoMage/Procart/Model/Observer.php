@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.0
  */
 	
@@ -44,6 +44,12 @@ class GoMage_Procart_Model_Observer{
             $result['shipping'] = $layout->createBlock('checkout/cart_shipping', 'checkout.cart.shipping')
                                      ->setTemplate('checkout/cart/shipping.phtml')  
                                      ->renderView();
+                                     
+            if (($request->getParam('gpc_crosssell') == 1) && Mage::getStoreConfig('gomage_procart/qty_settings/crosssell_prods')){
+            	$result['crosssell'] = $layout->createBlock('checkout/cart_crosssell', 'checkout.cart.crosssell')
+	                                     ->setTemplate('checkout/cart/crosssell.phtml')  
+	                                     ->renderView();            	
+            }                         
                         
             Mage::getSingleton('checkout/session')->setNoCartRedirect(true);  
             Mage::app()->getFrontController()->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));           
@@ -79,16 +85,22 @@ class GoMage_Procart_Model_Observer{
     {        
         $request = $event->getRequest();
         if ($request->getParam('gpc_add') == 1)
-		{
+		{			
 		    $result = array();
-	        $result['success'] = true;
-	        	        
-	        $result['cart'] = $this->getCartSidebar();                                                                                     
-            $result['top_links'] = $this->getTopLinks();
+		    
+		    $id = $request->getParam('id');		    		    
+		    if ($id != $event->getItem()->getId()){
+		    	$result['success'] = false;
+		    	$result['redirect'] = Mage::getUrl('checkout/cart/configure', array('id' => $event->getItem()->getId())); 
+		    }else{		    
+		        $result['success'] = true;	        	        
+		        $result['cart'] = $this->getCartSidebar();                                                                                     
+	            $result['top_links'] = $this->getTopLinks();            
+	            $result['prod_name'] = $event->getItem()->getProduct()->getName();                        	        
+	            $result['qty'] = $event->getRequest()->getParam('qty');
+	            $result['product_id'] = $event->getItem()->getProduct()->getId();
+		    }
             
-            $result['prod_name'] = $event->getItem()->getProduct()->getName();                        	        
-            $result['qty'] = $event->getRequest()->getParam('qty');
-            $result['product_id'] = $event->getItem()->getProduct()->getId();
             Mage::getSingleton('checkout/session')->setNoCartRedirect(true);  
             Mage::app()->getFrontController()->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
             Mage::getSingleton('checkout/session')->setData('gomage_procart_result', Mage::helper('core')->jsonEncode($result));
@@ -160,12 +172,12 @@ class GoMage_Procart_Model_Observer{
 	    }	    
 	}
 	
-	public function addGroupProductWithError($event){
+	public function addProductWithError($event){
 	    
 	    $request = $event->getControllerAction()->getRequest();
 	    $product = Mage::getModel('catalog/product')->load($request->getParam('id'));
 
-	    if ($product && $product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED){
+	    if ($product && in_array($product->getTypeId(), array(Mage_Catalog_Model_Product_Type::TYPE_GROUPED, Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE))){
 	    
     	    if(Mage::helper('gomage_procart')->isProCartEnable() && Mage::getStoreConfig('gomage_procart/qty_settings/product_page')){	        	                 
     	                 
@@ -174,7 +186,7 @@ class GoMage_Procart_Model_Observer{
         	    $message_text = '';
         	    
         	    foreach ( $messages as $message) {
-        	        $message_text .= $message->getText();
+        	        $message_text .= str_replace('""', '"'.$product->getName().'"', $message->getText());
         	    }
       	    
         	    if ($message_text){
@@ -316,6 +328,12 @@ class GoMage_Procart_Model_Observer{
                 $result['shipping'] = $layout->createBlock('checkout/cart_shipping', 'checkout.cart.shipping')
                                          ->setTemplate('checkout/cart/shipping.phtml')  
                                          ->renderView();                         
+                                         
+	            if (Mage::getStoreConfig('gomage_procart/qty_settings/crosssell_prods')){
+	            	$result['crosssell'] = $layout->createBlock('checkout/cart_crosssell', 'checkout.cart.crosssell')
+		                                     ->setTemplate('checkout/cart/crosssell.phtml')  
+		                                     ->renderView();            	
+	            }                         
             }
             
 	        if (!$result['error']){
@@ -350,7 +368,8 @@ class GoMage_Procart_Model_Observer{
 	    if ($request->getParam('gpc_wishlist_add') == 1){
     	    if(!Mage::getSingleton('customer/session')->isLoggedIn()){
     	        $result = array();    	        
-    	        $result['redirect'] = Mage::getUrl('wishlist');    	        
+    	        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*/*', array('_current'=>true)));
+    	        $result['redirect'] = Mage::helper('customer')->getLoginUrl();    	        
 	            echo Mage::helper('core')->jsonEncode($result); exit();
     	    }    	    
 	    } 
@@ -361,6 +380,8 @@ class GoMage_Procart_Model_Observer{
 	    if ($request->getParam('gpc_wishlist_add') == 1){
 	        Mage::helper('wishlist')->calculate();
 	        Mage::unregister('wishlist');
+	        Mage::unregister('shared_wishlist');
+	        Mage::unregister('_helper/wishlist');	        	        
     	    $result = array();    	        
         	$result['prod_name'] = $event->getProduct()->getName(); 
         	$result['top_links'] = $this->getTopLinks();  
@@ -374,7 +395,7 @@ class GoMage_Procart_Model_Observer{
 	    if ($request->getParam('gpc_compare_add') == 1){
     	    $result = array();    	        
         	$result['prod_name'] = $event->getProduct()->getName();
-
+			Mage::getSingleton('catalog/session')->getMessages(true);
         	Mage::helper('catalog/product_compare')->calculate();
         	$layout = Mage::getSingleton('core/layout');
 	    
@@ -401,6 +422,64 @@ class GoMage_Procart_Model_Observer{
         	
             echo Mage::helper('core')->jsonEncode($result); exit();
 	    }        	        
+	}
+	
+	public function AddProductFromWishlist($event){
+		$request = Mage::app()->getFrontController()->getRequest();
+		if ($request->getParam('gpc_add') == 1){
+			$itemId = $request->getParam('item');
+			if ($itemId){
+				 $item = Mage::getModel('wishlist/item')->load($itemId);			     		
+				 if (!$item->getId()){
+				 	$result = array();
+				 	$result['success'] = false;
+				 	$result['redirect'] = Mage::helper('checkout/cart')->getCartUrl();				 	
+		            echo Mage::helper('core')->jsonEncode($result); exit();
+		            
+		         }else{
+			        $messages = Mage::getSingleton('catalog/session')->getMessages(false)->getItems(Mage_Core_Model_Message::NOTICE);	        	    
+	        	    $message_text = '';	        	    
+	        	    foreach ( $messages as $message) {
+	        	        $message_text .= str_replace('""', '"'.$item->getProduct()->getName().'"', $message->getText());
+	        	    }
+	        	    
+	        	    $messages = Mage::getSingleton('wishlist/session')->getMessages(false)->getItems(Mage_Core_Model_Message::ERROR);
+		         	foreach ( $messages as $message) {
+	        	        $message_text .= str_replace('""', '"'.$item->getProduct()->getName().'"', $message->getText());
+	        	    }
+	        	    
+	        	    if ($message_text){
+	        	    	Mage::getSingleton('catalog/session')->getMessages(true);
+	        	    	Mage::getSingleton('wishlist/session')->getMessages(true);
+	        	    	$result['success'] = false;
+					 	$result['message'] = $message_text;				 	
+			            echo Mage::helper('core')->jsonEncode($result); exit();
+	        	    }	        	    
+		         }
+			}
+		} 		
+	}
+	
+	public function updateItemOptionsWithError($event){
+		$request = Mage::app()->getFrontController()->getRequest();
+		if ($request->getParam('gpc_add') == 1){
+			
+				$product = Mage::getModel('catalog/product')->load($request->getParam('product', 0));
+				$product_name = ($product->getId() ? $product->getName() : '');
+				
+				
+				$messages = array_merge(Mage::getSingleton('checkout/session')->getMessages(false)->getItems(Mage_Core_Model_Message::ERROR), Mage::getSingleton('checkout/session')->getMessages(false)->getItems(Mage_Core_Model_Message::NOTICE));	        	    
+        	    $message_text = '';	        	    
+        	    foreach ( $messages as $message) {
+        	        $message_text .= str_replace('""', '"'.$product_name.'"', $message->getText());
+        	    }
+        	    if ($message_text){
+        	    	Mage::getSingleton('checkout/session')->getMessages(true);        	    	
+        	    	$result['success'] = false;        	    	
+				 	$result['message'] = $message_text;				 	
+		            echo Mage::helper('core')->jsonEncode($result); exit();
+        	    }	        	   
+		}			
 	}
 			
 }

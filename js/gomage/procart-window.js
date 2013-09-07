@@ -841,8 +841,8 @@ GcpWindow.prototype = {
       this.pageSize = pageSize;
       this.windowScroll = windowScroll;
       // set height of Overlay to take up whole page and show
-      if ($('overlay_modal')) 
-        $('overlay_modal').setStyle({height: (pageSize.pageHeight + 'px')});
+      if ($('overlay_modal_gcp')) 
+        $('overlay_modal_gcp').setStyle({height: (pageSize.pageHeight + 'px')});
                   
       if (this.options.recenterAuto)
         this._center(this.centerTop, this.centerLeft);
@@ -890,6 +890,18 @@ GcpWindow.prototype = {
       this.doNotNotifyHide = true;
       this.hide();
       this.doNotNotifyHide = false;
+      if ($('product_addtocart_form') && (typeof(productAddToCartForm) != 'undefined') &&
+    		  $('customer-reviews')){
+    	  
+    	    $('product_addtocart_form').onsubmit = function(){
+			    return false;
+			};
+			productAddToCartForm.submit = function(){
+				if (productAddToCartForm.validator.validate()){
+					GomageProcartConfig.addtoCartProduct();					
+				}
+			}
+      }
       this._notify("onClose");
     }
   },
@@ -1278,12 +1290,12 @@ var GcpWindows = {
   addModalWindow: function(win) {
     // Disable screen if first modal window
     if (this.modalWindows.length == 0) {
-      GcpWindowUtilities.disableScreen(win.options.className, 'overlay_modal', win.overlayOpacity, win.getId(), win.options.parent);
+      GcpWindowUtilities.disableScreen(win.options.className, 'overlay_modal_gcp', win.overlayOpacity, win.getId(), win.options.parent);
     }
     else {
       // Move overlay over all windows
       if (GcpWindow.keepMultiModalWindow) {
-        $('overlay_modal').style.zIndex = GcpWindows.maxZIndex + 1;
+        $('overlay_modal_gcp').style.zIndex = GcpWindows.maxZIndex + 1;
         GcpWindows.maxZIndex += 1;
         GcpWindowUtilities._hideSelect(this.modalWindows.last().getId());
       }
@@ -1701,7 +1713,7 @@ var GcpWindowUtilities = {
     // set height of Overlay to take up whole page and show
     objOverlay.style.height = (pageSize.pageHeight + 'px');
     objOverlay.style.display = 'none'; 
-    if (overlayId == "overlay_modal" && GcpWindow.hasEffectLib && GcpWindows.overlayShowEffectOptions) {
+    if (overlayId == "overlay_modal_gcp" && GcpWindow.hasEffectLib && GcpWindows.overlayShowEffectOptions) {
       objOverlay.overlayOpacity = overlayOpacity;
       new Effect.Appear(objOverlay, Object.extend({from: 0, to: overlayOpacity}, GcpWindows.overlayShowEffectOptions));
     }
@@ -1710,11 +1722,11 @@ var GcpWindowUtilities = {
   },
   
   enableScreen: function(id) {
-    id = id || 'overlay_modal';
+    id = id || 'overlay_modal_gcp';
     var objOverlay =  $(id);
     if (objOverlay) {
       // hide lightbox and overlay
-      if (id == "overlay_modal" && GcpWindow.hasEffectLib && GcpWindows.overlayHideEffectOptions)
+      if (id == "overlay_modal_gcp" && GcpWindow.hasEffectLib && GcpWindows.overlayHideEffectOptions)
         new Effect.Fade(objOverlay, Object.extend({from: objOverlay.overlayOpacity, to:0}, GcpWindows.overlayHideEffectOptions));
       else {
         objOverlay.style.display = 'none';
@@ -1789,7 +1801,7 @@ var GcpWindowUtilities = {
       GcpWindows.maxZIndex++;
       objOverlay.style.width = '100%';      
       parent.insertBefore(objOverlay, parent.firstChild);
-      if (Prototype.Browser.WebKit && id == "overlay_modal") {
+      if (Prototype.Browser.WebKit && id == "overlay_modal_gcp") {
         setTimeout(function() {doneHandler()}, 10);
       }
       else

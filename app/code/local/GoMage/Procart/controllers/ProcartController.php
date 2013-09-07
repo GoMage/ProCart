@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.0
  */
  
@@ -216,15 +216,8 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                 Mage::logException($e);                
             }    
             
-            if (!$result['error'] && $this->getRequest()->getParam('sidebar') == 1){                            
-    	        $layout = Mage::getSingleton('core/layout');	        
-    	        $result['cart'] = $layout->createBlock('checkout/cart_sidebar', 'cart_sidebar')
-    	                                ->setTemplate('checkout/cart/sidebar.phtml')
-                                        ->addItemRender('simple', 'checkout/cart_item_renderer', 'checkout/cart/sidebar/default.phtml')
-                                        ->addItemRender('configurable', 'checkout/cart_item_renderer_configurable', 'checkout/cart/sidebar/default.phtml')
-                                        ->addItemRender('grouped', 'checkout/cart_item_renderer_grouped', 'checkout/cart/sidebar/default.phtml')
-                                        ->addItemRender('bundle', 'bundle/checkout_cart_item_renderer', 'checkout/cart/sidebar/default.phtml')                                    
-                                        ->renderView();
+            if (!$result['error'] && $this->getRequest()->getParam('sidebar') == 1){                                	        	        
+    	        $result['cart'] = Mage::getModel('gomage_procart/observer')->getCartSidebar();
             }
 
             if (!$result['error'] && $this->getRequest()->getParam('cart') == 1){
@@ -261,7 +254,7 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                                 ->addItemRender('grouped', 'checkout/cart_item_renderer_grouped', 'checkout/cart/item/default.phtml')
                                 ->addItemRender('bundle', 'bundle/checkout_cart_item_renderer', 'checkout/cart/item/default.phtml');                                        
         foreach ($cart->getItems() as $_item)
-        {                                            
+        {                                           
             $items_html .= $cart->getItemHtml($_item);
         }   
         
@@ -415,10 +408,22 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
                      }                     
                  }
              }
+             
+             Mage::getSingleton('checkout/session')->unsetAll();
+             
              $result['choosetext'] = Mage::helper('catalog')->__('Choose an Option...');
              $result['success_param'] = $success_param;
              $result['error'] = true;             
-             $result['message'] = $e->getMessage();
+             $result['message'] = $e->getMessage();             
+             if ($quoteItem){
+             	$result['message'] = str_replace('""', '"'.$quoteItem->getProduct()->getName().'"', $result['message']);
+             	$result['message'] = explode('.', $result['message']);
+             	foreach ($result['message'] as $_k => $_v){
+             		$result['message'][$_k] = trim($_v);
+             	}
+             	$result['message'] = array_unique($result['message']);             	             	
+             	$result['message'] = implode('.', $result['message']);
+             }
         } catch (Exception $e) {
             $result['error'] = true;
             $result['message'] = $e->getMessage();
@@ -436,6 +441,7 @@ class GoMage_Procart_ProcartController extends Mage_Core_Controller_Front_Action
         }
         
         $result['items_html'] = $this->getCartItems();
+        $result['cart'] = Mage::getModel('gomage_procart/observer')->getCartSidebar();
 	    
 	    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
 	}

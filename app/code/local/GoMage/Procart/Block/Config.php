@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.0
  */
 	
@@ -92,6 +92,7 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template{
 		     
 		     $this->_config['change_qty_cart_page'] = Mage::getStoreConfig('gomage_procart/qty_settings/cart_page');		     		     		     
 		     $this->_config['change_qty_category_page'] = Mage::getStoreConfig('gomage_procart/qty_settings/category_page');
+		     $this->_config['qty_editor_category_page'] = Mage::getStoreConfig('gomage_procart/qty_settings/category_page_qty');
 		     $this->_config['change_qty_product_page'] = (Mage::registry('current_product') && Mage::getStoreConfig('gomage_procart/qty_settings/product_page') ? 1 : 0);
 		     $this->_config['change_qty_crosssell_prods'] = Mage::getStoreConfig('gomage_procart/qty_settings/crosssell_prods');
 		     		     		     
@@ -104,6 +105,7 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template{
 		     $this->_config['window_width'] = Mage::getStoreConfig('gomage_procart/confirm_window/width');
 		     
 		     $this->_config['addition_product_list_url'] = $this->getUrl('gomageprocart/procart/getproductlist');
+		     $this->_config['name_url_encoded'] = Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED;
          }
          return Mage::helper('core')->jsonEncode($this->_config);          
     }

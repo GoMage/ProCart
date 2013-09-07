@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.1
  */
 
@@ -30,4 +30,16 @@ class GoMage_Procart_Helper_Product_Compare extends Mage_Catalog_Helper_Product_
             return parent::getRemoveUrl($item);
         }
     }
+    
+	public function getClearListUrl()
+    {
+    	if (Mage::helper('gomage_procart')->isProCartEnable() && 
+    	    Mage::app()->getFrontController()->getRequest()->getParam('gpc_compare_add') == 1){
+        	$params = array();
+        	return $this->_getUrl('catalog/product_compare/clear', $params);
+    	}else{
+    		return parent::getClearListUrl();
+    	}	
+    }
+    
 }

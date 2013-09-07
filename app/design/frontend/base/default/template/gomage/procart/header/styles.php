@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.1
+ * @version      Release: 1.2
  * @since        Class available since Release 1.0
  */
  ?>
@@ -23,10 +23,12 @@
 		
 		<?php if($_width = intval(Mage::getStoreConfig('gomage_procart/ajaxloader/width'))):?>
 		width:<?php echo $_width;?>px !important;
+		margin-left: -<?php echo intval($_width/2 + 9);?>px;
 		<?php endif;?>
 		
 		<?php if($_height = intval(Mage::getStoreConfig('gomage_procart/ajaxloader/height'))):?>
 		height:<?php echo $_height;?>px !important;
+		margin-top: -<?php echo intval($_height/2 + 9);?>px;
 		<?php endif;?>		
 	}
 	#gpc_confirmation_window, #gcp_configurable_add_to_cart{
