@@ -2303,9 +2303,10 @@ GomageProcartConfigClass.prototype = {
             if (element.up('div.quick-access')) {
                 return true;
             }
-        }).up();
+        });
         if (topWishlist) {
-            topWishlist.replace(content);
+            var topWishlist_parent = topWishlist.up();
+            topWishlist_parent.replace(content);
         }
     },
 
