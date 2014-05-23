@@ -94,7 +94,7 @@ class GoMage_Procart_Block_Config extends Mage_Core_Block_Template
                     if (!Mage::getStoreConfigFlag('gomage_procart/general/slide_destination')) {
                         $this->_config['slide_destination'] = 'div.block-cart';
                     } else {
-                        $this->_config['slide_destination'] = 'a.top-link-cart';
+                        $this->_config['slide_destination'] = 'a.top-link-cart, a.skip-cart';
                     }
                 } else {
                     $this->_config['slide_destination'] = 'div.top-cart';
