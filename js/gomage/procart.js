@@ -715,6 +715,7 @@ GomageProcartConfigClass.prototype = {
     },
 
     prepareCartItem: function (update_item_id) {
+
         if ($('shopping-cart-table') && $('shopping-cart-table').select('input.qty').length > 0) {
             var elements = $('shopping-cart-table').select('input.qty');
             for (var i = 0; i < elements.length; i++) {
@@ -728,10 +729,11 @@ GomageProcartConfigClass.prototype = {
                 var td = elements[i].up('td');
                 elements[i].id = 'gpc_cart_item_' + item_id;
 
-                var item_html = td.innerHTML;
-                var td_html = this.qty_cart_template.replace(/#gpc_item_id/g, item_id).replace(/#gpc_input_cart_qty/g, item_html);
+                var qty_cart = document.createElement('div').insert(elements[i]).innerHTML;
 
-                td.innerHTML = td_html;
+                var qty_cart = this.qty_cart_template.replace(/#gpc_item_id/g, item_id).replace(/#gpc_input_cart_qty/g, qty_cart);
+
+                td.innerHTML = qty_cart + td.innerHTML;
             }
             this.prepareWishlist();
         }
