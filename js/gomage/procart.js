@@ -1220,7 +1220,16 @@ GomageProcartConfigClass.prototype = {
     replaceTopLinks: function (response) {
         this._replaceUltCustomerNav(response);
         this._replaceTopLink('top-link-cart', response);
+        this._replaceMiniCart(response);
         return this._replaceTopLink('top-link-wishlist', response);
+    },
+
+    _replaceMiniCart: function (response) {
+        if (typeof(Minicart) != 'undefined' && response.minicart_content) {
+            var Mini = new Minicart({});
+            Mini.updateCartQty(response.total_qty);
+            Mini.updateContentOnUpdate({content: response.minicart_content});
+        }
     },
 
     _replaceUltCustomerNav: function (response) {
