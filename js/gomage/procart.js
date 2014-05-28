@@ -1389,21 +1389,26 @@ GomageProcartConfigClass.prototype = {
 
     effectSlidetoCart: function (control) {
 
+        if (!control) {
+            return;
+        }
+
         if (this.config.add_effect != '2') return;
         if (this.slide_control == undefined) return;
 
         if (control.id == 'image') {
             var img = control;
-        }
-        else {
-            if ($(control) && $(control).up('li.item')) {
+        } else {
+            if ($(control).up('li.item') && $(control).up('li.item').down('img')) {
                 var img = $(control).up('li.item').down('img');
             }
             else if ($(control).up('a.product-image')) {
                 var img = control;
             }
-            else {
+            else if ($(control).up('td') && $(control).up('td').down('img')) {
                 var img = $(control).up('td').down('img');
+            } else if ($(control).up('li') && $(control).up('li').down('img')) {
+                var img = $(control).up('li').down('img');
             }
         }
 
