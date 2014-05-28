@@ -833,6 +833,7 @@ GomageProcartConfigClass.prototype = {
 
         if ($('product_addtocart_form') && typeof(productAddToCartForm) != 'undefined') {
 
+            productAddToCartForm = new VarienForm('product_addtocart_form');
             var gpc_add = document.createElement("input");
             gpc_add.type = "hidden";
             gpc_add.name = "gpc_add";
