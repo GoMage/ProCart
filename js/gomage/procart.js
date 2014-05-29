@@ -1285,7 +1285,7 @@ GomageProcartConfigClass.prototype = {
 
     _replaceTopLink: function (link_class, response) {
 
-        var link = $$('ul.links a.' + link_class)[0];
+        var link = $$('ul.links a.' + link_class + ', div.links ul a.' + link_class)[0];
         if (link && response.top_links) {
 
             var content = response.top_links;
