@@ -765,7 +765,9 @@ GomageProcartConfigClass.prototype = {
             return product.value;
         }
 
-        return $$('input[name="product"]').first().value;
+        if ($$('input[name="product"]').first()) {
+            return $$('input[name="product"]').first().value;
+        }
     },
 
     addtoCartProduct: function () {
