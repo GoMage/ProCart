@@ -1261,6 +1261,9 @@ GomageProcartConfigClass.prototype = {
             var Mini = new Minicart({});
             Mini.updateCartQty(response.total_qty);
             Mini.updateContentOnUpdate({content: response.minicart_content});
+            if ($$('div.header-minicart a.no-count')[0]){
+                $$('div.header-minicart a.no-count')[0].removeClassName('no-count');
+            }
         }
     },
 
