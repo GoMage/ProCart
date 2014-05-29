@@ -494,18 +494,35 @@ input.procart-qty,
 [class*="gpc-arrbut-mcb"] .cart-table input.qty{
 	text-align:center;
 	padding:1px 0;
-}
+  margin: 0;
+  width: 30px !important;
+  height: 19px;
+  font-size: 12px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box;
+  }
+[class*="gpc-arrbut-mcb"] .cart-table .product-cart-actions .cart-links{
+  margin-top: 10px;
+  }
 .gpc-arrbut-cp-arr-lr .gpc-cart-arr-lr{
 	width:52px;
+  margin: auto;
+  overflow: hidden;
 }
 .gpc-arrbut-cp-btn-lr .gpc-cart-butt-lr{
 	width:68px;
+  margin: auto;
+  overflow: hidden;
 }
 .gpc-arrbut-cp-btn-right-small .gpc-cart-butt-tb{
   width:50px;
+  margin: auto;
   }
 .gpc-arrbut-cp-btn-right .gpc-cart-butt-tb{
   width:66px;
+  margin: auto;
+  overflow: hidden;
   }
 .gpc-arrbut-cp-arr-lr .gpc-cart-arr-lr input.qty,
 .gpc-arrbut-cp-btn-lr .gpc-cart-butt-lr input.qty,
