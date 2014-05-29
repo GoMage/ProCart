@@ -113,46 +113,50 @@ GomageProcartConfigClass.prototype = {
                 }
             });
             for (var i = 0; i < elements.length; i++) {
-                var onclick_str = elements[i].attributes["onclick"].nodeValue;
 
-                try {
-                    onclick_str = onclick_str.toString().match(/\'.*?\'/);
-                    onclick_str = onclick_str[0].replace(/\'/g, '');
-                } catch (e) {
-                    continue;
+                if (elements[i].attributes["onclick"]) {
+
+                    var onclick_str = elements[i].attributes["onclick"].nodeValue;
+
+                    try {
+                        onclick_str = onclick_str.toString().match(/\'.*?\'/);
+                        onclick_str = onclick_str[0].replace(/\'/g, '');
+                    } catch (e) {
+                        continue;
+                    }
+                    var product_id = ProcartGetUrlParam(onclick_str, 'gpc_prod_id');
+                    if (!product_id) continue;
+                    elements[i].onclick = function () {
+                        GomageProcartConfig.addtoCart(this);
+                    };
+
+                    if ($('gpc_prod_id_' + product_id)) {
+                        continue;
+                    }
+
+                    var qty_div = $(document.createElement('span'));
+                    qty_div.addClassName('gpc_qty_edit');
+
+                    var verification_qty = false;
+                    if (onclick_str.search('checkout/cart/add') != -1) {
+                        verification_qty = true;
+                    }
+                    if (this.config.qty_editor_category_page != '1') {
+                        qty_div.addClassName('hidden');
+                    }
+                    qty_div.innerHTML = this.qty_template.replace(/#gpc_prod_id/g, product_id).replace(/#verification_qty/g, verification_qty);
+                    new Insertion.After(elements[i], qty_div);
+
+                    if (typeof(this.product_list[product_id]) == 'undefined') {
+                        this.addition_product_list_ids.push(product_id);
+                        $('gpc_prod_id_' + product_id).value = 1;
+                    } else {
+                        $('gpc_prod_id_' + product_id).value = this.product_list[product_id].increments;
+                    }
+
+                    elements[i].id = 'gcp_add_to_cart_' + this.add_to_cart_onclick_str.length;
+                    this.add_to_cart_onclick_str[this.add_to_cart_onclick_str.length] = onclick_str;
                 }
-                var product_id = ProcartGetUrlParam(onclick_str, 'gpc_prod_id');
-                if (!product_id) continue;
-                elements[i].onclick = function () {
-                    GomageProcartConfig.addtoCart(this);
-                };
-
-                if ($('gpc_prod_id_' + product_id)) {
-                    continue;
-                }
-
-                var qty_div = $(document.createElement('span'));
-                qty_div.addClassName('gpc_qty_edit');
-
-                var verification_qty = false;
-                if (onclick_str.search('checkout/cart/add') != -1) {
-                    verification_qty = true;
-                }
-                if (this.config.qty_editor_category_page != '1') {
-                    qty_div.addClassName('hidden');
-                }
-                qty_div.innerHTML = this.qty_template.replace(/#gpc_prod_id/g, product_id).replace(/#verification_qty/g, verification_qty);
-                new Insertion.After(elements[i], qty_div);
-
-                if (typeof(this.product_list[product_id]) == 'undefined') {
-                    this.addition_product_list_ids.push(product_id);
-                    $('gpc_prod_id_' + product_id).value = 1;
-                } else {
-                    $('gpc_prod_id_' + product_id).value = this.product_list[product_id].increments;
-                }
-
-                elements[i].id = 'gcp_add_to_cart_' + this.add_to_cart_onclick_str.length;
-                this.add_to_cart_onclick_str[this.add_to_cart_onclick_str.length] = onclick_str;
             }
         }
 
