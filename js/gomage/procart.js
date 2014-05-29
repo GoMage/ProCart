@@ -105,58 +105,70 @@ GomageProcartConfigClass.prototype = {
                     this.bundle_selection_hash[key] = gomage_procart_bundle_selection_hash[key];
                 }
             }
-            var elements = new Array();
-            $$('div.category-products').each(function (element) {
-                var buttons = element.getElementsByClassName('btn-cart');
-                for (var i = 0; i < buttons.length; i++) {
-                    elements.push(buttons[i]);
-                }
-            });
+            var elements = $$('div.category-products button.btn-cart, div.category-products a.button');
+
             for (var i = 0; i < elements.length; i++) {
 
+                var onclick_str = '';
+
                 if (elements[i].attributes["onclick"]) {
-
-                    var onclick_str = elements[i].attributes["onclick"].nodeValue;
-
+                    onclick_str = elements[i].attributes["onclick"].nodeValue;
                     try {
                         onclick_str = onclick_str.toString().match(/\'.*?\'/);
                         onclick_str = onclick_str[0].replace(/\'/g, '');
                     } catch (e) {
                         continue;
                     }
-                    var product_id = ProcartGetUrlParam(onclick_str, 'gpc_prod_id');
-                    if (!product_id) continue;
-                    elements[i].onclick = function () {
-                        GomageProcartConfig.addtoCart(this);
-                    };
-
-                    if ($('gpc_prod_id_' + product_id)) {
-                        continue;
-                    }
-
-                    var qty_div = $(document.createElement('span'));
-                    qty_div.addClassName('gpc_qty_edit');
-
-                    var verification_qty = false;
-                    if (onclick_str.search('checkout/cart/add') != -1) {
-                        verification_qty = true;
-                    }
-                    if (this.config.qty_editor_category_page != '1') {
-                        qty_div.addClassName('hidden');
-                    }
-                    qty_div.innerHTML = this.qty_template.replace(/#gpc_prod_id/g, product_id).replace(/#verification_qty/g, verification_qty);
-                    new Insertion.After(elements[i], qty_div);
-
-                    if (typeof(this.product_list[product_id]) == 'undefined') {
-                        this.addition_product_list_ids.push(product_id);
-                        $('gpc_prod_id_' + product_id).value = 1;
-                    } else {
-                        $('gpc_prod_id_' + product_id).value = this.product_list[product_id].increments;
-                    }
-
-                    elements[i].id = 'gcp_add_to_cart_' + this.add_to_cart_onclick_str.length;
-                    this.add_to_cart_onclick_str[this.add_to_cart_onclick_str.length] = onclick_str;
                 }
+                else if (elements[i].attributes["href"]) {
+                    for (var key in this.product_list) {
+                        if (this.product_list[key].product_url == elements[i].attributes["href"].nodeValue) {
+                            onclick_str = this.product_list[key].addtocart_url;
+                        }
+                    }
+                }
+
+                if (!onclick_str) {
+                    continue;
+                }
+
+                var product_id = ProcartGetUrlParam(onclick_str, 'gpc_prod_id');
+                if (!product_id) {
+                    continue;
+                }
+
+                elements[i].onclick = function () {
+                    GomageProcartConfig.addtoCart(this);
+                    return false;
+                };
+
+                if ($('gpc_prod_id_' + product_id)) {
+                    continue;
+                }
+
+                var qty_div = $(document.createElement('span'));
+                qty_div.addClassName('gpc_qty_edit');
+
+                var verification_qty = false;
+                if (onclick_str.search('checkout/cart/add') != -1) {
+                    verification_qty = true;
+                }
+                if (this.config.qty_editor_category_page != '1') {
+                    qty_div.addClassName('hidden');
+                }
+                qty_div.innerHTML = this.qty_template.replace(/#gpc_prod_id/g, product_id).replace(/#verification_qty/g, verification_qty);
+                new Insertion.After(elements[i], qty_div);
+
+                if (typeof(this.product_list[product_id]) == 'undefined') {
+                    this.addition_product_list_ids.push(product_id);
+                    $('gpc_prod_id_' + product_id).value = 1;
+                } else {
+                    $('gpc_prod_id_' + product_id).value = this.product_list[product_id].increments;
+                }
+
+                elements[i].id = 'gcp_add_to_cart_' + this.add_to_cart_onclick_str.length;
+                this.add_to_cart_onclick_str[this.add_to_cart_onclick_str.length] = onclick_str;
+
             }
         }
 
@@ -957,8 +969,10 @@ GomageProcartConfigClass.prototype = {
             qty = 1;
         }
 
-        var params = {qty: qty,
-            gpc_show_configurable: 1};
+        var params = {
+            qty: qty,
+            gpc_show_configurable: 1
+        };
 
         var request = new Ajax.Request(url,
             {
