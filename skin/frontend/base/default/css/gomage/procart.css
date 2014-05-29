@@ -1113,6 +1113,9 @@ input.procart-qty,
 .gpc-arrbut-popup-btn-right-small #gcp_configurable_add_to_cart .add-to-cart .gpc_qty_edit{
   /width:44px;
   }
+.gpc_qty_edit.hidden{
+  display: none !important;
+  }
   
 /* Ultimento
 -------------------------------------------------- */
