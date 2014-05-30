@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Procart Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 2.1
  * @since        Class available since Release 1.0
  */
-
 class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
@@ -86,7 +86,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=procart&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('2.0'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=procart&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('2.1'));
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -104,16 +104,16 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             $groups = array(
                 'procart' => array(
                     'fields' => array(
-                        'ar'       => array(
+                        'ar' => array(
                             'value' => $value1
                         ),
                         'websites' => array(
                             'value' => (string)Mage::getStoreConfig('gomage_activation/procart/websites')
                         ),
-                        'time'     => array(
+                        'time' => array(
                             'value' => (string)$e->encrypt($value1 . (time() - (60 * 60 * 24 * 15 - 1800)) . $value1)
                         ),
-                        'count'    => array(
+                        'count' => array(
                             'value' => $c + 1)
                     )
                 )
@@ -150,19 +150,19 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
         $groups = array(
             'procart' => array(
                 'fields' => array(
-                    'ar'        => array(
+                    'ar' => array(
                         'value' => $value1
                     ),
-                    'websites'  => array(
+                    'websites' => array(
                         'value' => (string)$value2
                     ),
-                    'time'      => array(
+                    'time' => array(
                         'value' => (string)$e->encrypt($value1 . time() . $value1)
                     ),
                     'installed' => array(
                         'value' => 1
                     ),
-                    'count'     => array(
+                    'count' => array(
                         'value' => 0)
 
                 )
@@ -241,7 +241,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             return true;
         }
 
-        $_modules      = Mage::getConfig()->getNode('modules')->children();
+        $_modules = Mage::getConfig()->getNode('modules')->children();
         $_modulesArray = (array)$_modules;
 
         $lightcheckout = (isset($_modulesArray['GoMage_Checkout']) &&
@@ -269,7 +269,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $quote = Mage::getSingleton('checkout/session')->getQuote();
-            $item  = $quote->getItemByProduct($product);
+            $item = $quote->getItemByProduct($product);
             if ($item && $qty = $item->getQty()) {
                 $max_qty = $max_qty - $qty;
                 if ($min_qty > $max_qty) {
@@ -285,7 +285,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             $min_qty = 0;
         }
 
-        $product_data   = Mage::getModel('cataloginventory/stock_item')->loadByProduct($product);
+        $product_data = Mage::getModel('cataloginventory/stock_item')->loadByProduct($product);
         $qty_increments = $product_data->getQtyIncrements();
 
         if ($qty_increments && !$parent_id) {
@@ -296,22 +296,25 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             $parent_product = Mage::getModel('catalog/product')->load($parent_id);
 
             if ($parent_product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
-                $product_data   = Mage::getModel('cataloginventory/stock_item')->loadByProduct($parent_product);
+                $product_data = Mage::getModel('cataloginventory/stock_item')->loadByProduct($parent_product);
                 $qty_increments = $product_data->getQtyIncrements();
-                $min_qty        = $qty_increments;
+                $min_qty = $qty_increments;
             }
         }
 
-        return array('min_qty'     => intval($min_qty),
-                     'max_qty'     => intval($max_qty),
-                     'name'        => $product->getName(),
-                     'is_simple'   => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE ? 1 : 0),
-                     'is_grouped'  => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED ? 1 : 0),
-                     'is_bundled'  => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE ? 1 : 0),
-                     'is_giftcard' => ($product->getTypeId() == 'giftcard' ? 1 : 0),
-                     'parent_id'   => $parent_id,
-                     'product_url' => $product->getProductUrl(),
-                     'increments'  => ($qty_increments ? $qty_increments : 1)
+        $block_product_list = Mage::getBlockSingleton('catalog/product_list');
+
+        return array('min_qty' => intval($min_qty),
+            'max_qty' => intval($max_qty),
+            'name' => $product->getName(),
+            'is_simple' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE ? 1 : 0),
+            'is_grouped' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_GROUPED ? 1 : 0),
+            'is_bundled' => ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE ? 1 : 0),
+            'is_giftcard' => ($product->getTypeId() == 'giftcard' ? 1 : 0),
+            'parent_id' => $parent_id,
+            'product_url' => $product->getProductUrl(),
+            'addtocart_url' => $block_product_list->getAddToCartUrl($product),
+            'increments' => ($qty_increments ? $qty_increments : 1)
         );
     }
 
@@ -397,7 +400,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=procart&timestamp=' . $timestamp . '&ver=' . urlencode('2.0'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=procart&timestamp=' . $timestamp . '&ver=' . urlencode('2.1'));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
