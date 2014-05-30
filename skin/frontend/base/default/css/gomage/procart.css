@@ -6,7 +6,7 @@
 * @author       GoMage
 * @license      http://www.gomage.com/license-agreement/  Single domain license
 * @terms of use http://www.gomage.com/terms-of-use
-* @version      Release: 2.0
+* @version      Release: 2.1
 * @since        Available since Release 1.0
 */
 
@@ -318,6 +318,10 @@
 	margin-top:2px;
 	margin-right:5px;
 }
+#gcp_configurable_add_to_cart .product-options-bottom .add-to-cart .qty-wrapper,
+#gcp_configurable_add_to_cart .product-options-bottom .add-to-cart .add-to-cart-buttons{
+  float: left;
+  }
 /* Options END */
 
 /* Windows */
@@ -346,6 +350,10 @@ button.gpc_msg_bnt span,
   white-space:nowrap;
   color:#fff; 
   background: none;
+  text-transform: none;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing   : content-box;
+  box-sizing        : content-box;
   }
 button.gpc_msg_bnt span span,
 #gcp_configurable_add_to_cart button.btn-cart span span{ 
@@ -354,6 +362,9 @@ button.gpc_msg_bnt span span,
   background-position:100% 0;
   border: 1px solid #f3f3f3;
   height: 23px !important;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing   : content-box;
+  box-sizing        : content-box;
   -webkit-background-clip: padding-box;
   -moz-background-clip   : padding-box;
   background-clip        : padding-box;
@@ -377,6 +388,13 @@ input.procart-qty,
 .gpc-arrbut-prodp-arr-lr .product-view .product-options-bottom .gpc_qty_edit .qty,
 .gpc-arrbut-prodp-btn-lr .product-view .product-options-bottom .gpc_qty_edit .qty{
   margin-right:0;
+  }
+.gomage_cp_dialog .add-to-cart .qty{
+  width: 32px;
+  height: 19px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing   : border-box;
+  box-sizing        : border-box;
   }
 
 /* Qty Arrows/Buttons */
@@ -436,6 +454,7 @@ input.procart-qty,
   font-family: Arial, "Nimbus Sans L", Helvetica, sans-serif;
   background:#F18200;
   color:#fff;
+  text-decoration: none !important;
   -webkit-border-radius: 3px;
      -moz-border-radius: 3px;
           border-radius: 3px;
