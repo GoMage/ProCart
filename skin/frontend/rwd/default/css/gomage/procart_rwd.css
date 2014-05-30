@@ -1,0 +1,153 @@
+/**
+* GoMage ProCart Extension
+*
+* @category     Extension
+* @copyright    Copyright (c) 2010-2013 GoMage (http://www.gomage.com)
+* @author       GoMage
+* @license      http://www.gomage.com/license-agreement/  Single domain license
+* @terms of use http://www.gomage.com/terms-of-use
+* @version      Release: 2.1
+* @since        Available since Release 1.0
+*/
+
+
+/* Category
+-------------------------------------------------- */
+.gpc-arrbut-cat-arr-lr .category-products .products-grid .procart-harr{
+  margin-top: 11px;
+  }
+.gpc-arrbut-cat-btn-lr .category-products .products-grid .procart-qbh,
+.gpc-arrbut-cat-btn-right .category-products .products-grid .procart-qb-right{
+  margin-top: 8px;
+  }
+.gpc-arrbut-cat-btn-right-small .category-products .products-grid .procart-qb-small{
+  top: 3px;
+  }
+.gpc-arrbut-cat-btn-tb .category-products .products-grid .product-info,
+.gpc-arrbut-cat-arr-lr .category-products .products-grid .product-info,
+.gpc-arrbut-cat-btn-lr .category-products .products-grid .product-info,
+.gpc-arrbut-cat-btn-right .category-products .products-grid .product-info{
+  padding-bottom: 115px;
+  }
+.gpc-arrbut-cat-arr-lr .category-products .products-grid .actions [id^="gcp_add_to_cart"],
+.gpc-arrbut-cat-btn-lr .category-products .products-grid .actions [id^="gcp_add_to_cart"],
+.gpc-arrbut-cat-btn-right .category-products .products-grid .actions [id^="gcp_add_to_cart"]{
+  margin-bottom: 5px;
+  }
+
+/* Product page
+-------------------------------------------------- */
+[class*="gpc-arrbut-prodp"] .product-view .add-to-cart .qty-wrapper .qty{
+  height: 22px;
+  width: 30px;
+  }
+[class*="gpc-arrbut-prodp"] .product-view .add-to-cart .gpc_qty_edit{
+  margin-top: 0;
+  }
+  .gpc-arrbut-prodp-arr-tb .product-view .add-to-cart .qty-wrapper .qty{
+    margin-bottom: 4px;
+    }
+.gpc-arrbut-prodp-btn-tb .product-view .add-to-cart-wrapper .add-to-cart label,
+.gpc-arrbut-prodp-btn-tb .product-view .add-to-cart-wrapper .add-to-cart button{
+  margin-top: 6px;
+  }    
+  .gpc-arrbut-prodp-btn-tb .product-view .add-to-cart-wrapper .add-to-cart .qty-wrapper .qty{
+    margin-bottom: 4px;
+    }
+.gpc-arrbut-prodp-btn-lr .product-view .add-to-cart-wrapper .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .add-to-cart-wrapper .add-to-cart .gpc_qty_edit{
+	width:68px;
+	margin-top:10px;
+  }    
+.gpc-arrbut-prodp-btn-right-small .product-view .add-to-cart-wrapper .add-to-cart .gpc_qty_edit{
+  width:46px;
+	margin-top:10px;  
+  }
+.gpc-arrbut-prodp-arr-lr .product-view .product-options-bottom .gpc_qty_edit,
+.gpc-arrbut-prodp-arr-lr .product-view .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-lr .product-view .product-options-bottom .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right-small .product-view .product-options-bottom .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .product-options-bottom .gpc_qty_edit{
+  margin: 10px 0 0;
+  }
+.gpc-arrbut-prodp-btn-lr .product-view .product-options-bottom .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .product-shop .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .product-options-bottom .add-to-cart .gpc_qty_edit{
+  margin-top: 10px;
+  }
+.gpc-arrbut-prodp-btn-right-small .product-view .product-options-bottom .add-to-cart .gpc_qty_edit{
+  width: 60px;
+  margin: 10px 0 0;
+  }  
+.gpc-arrbut-prodp-btn-tb .product-view .product-shop .product-options-bottom .add-to-cart label,
+.gpc-arrbut-prodp-btn-tb .product-view .product-shop .product-options-bottom .add-to-cart button{
+  margin-top: 8px;
+  }
+[class*="gpc-arrbut-prodp"] .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit{
+  float: left;
+  }
+  [class*="gpc-arrbut-prodp"] .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty{
+    height: 22px;
+    }
+  [class*="gpc-arrbut-prodp"] .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit + label{
+    clear: both;
+    display: block;
+    }
+.gpc-arrbut-prodp-arr-lr .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty,
+.gpc-arrbut-prodp-btn-lr .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty,
+.gpc-arrbut-prodp-btn-right-small .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty,
+.gpc-arrbut-prodp-btn-right .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty{
+  float: left;
+  }
+.gpc-arrbut-prodp-btn-right-small .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit {
+  width: 62px;
+  }
+  
+/* Upsell
+-------------------------------------------------- */
+[class*="gpc-arrbut-upsell"] .box-up-sell button.btn-cart{
+  margin-bottom: 4px;
+  }
+.gpc-arrbut-upsell-arr-tb .box-up-sell button.btn-cart{
+  margin-top: 7px;
+  }
+.gpc-arrbut-upsell-arr-lr .box-up-sell .procart-harr{
+  margin-top: 11px;
+  }
+.gpc-arrbut-upsell-btn-tb .box-up-sell button.btn-cart{
+  margin-top: 15px;
+  }
+.gpc-arrbut-upsell-btn-lr .box-up-sell .procart-qbh,
+.gpc-arrbut-upsell-btn-right .box-up-sell .procart-qb-right{
+  margin-top: 8px;
+  }
+.gpc-arrbut-upsell-btn-right-small .box-up-sell .gpc_qty_edit{
+  position: relative;
+  top: 1px;
+  }
+.gpc-arrbut-upsell-btn-right-small .box-up-sell .procart-qb-small{
+  top: 3px;
+  }
+
+/* Crosssell
+-------------------------------------------------- */
+[class*="gpc-arrbut-cross"] .crosssell #crosssell-products-list .button{
+  display: inline-block;
+  }
+.gpc-arrbut-cross-arr-tb .crosssell #crosssell-products-list .button,
+.gpc-arrbut-cross-btn-tb .crosssell #crosssell-products-list .button{
+  margin-bottom: 4px;
+  }
+.gpc-arrbut-cross-arr-lr .crosssell .procart-harr{
+  margin-top: 11px;
+  }
+.gpc-arrbut-cross-arr-tb .crosssell button.btn-cart{
+  margin-top: 7px;
+  }
+.gpc-arrbut-cross-btn-lr .crosssell .procart-qbh,
+.gpc-arrbut-cross-btn-right .crosssell .procart-qb-right{
+  margin-top: 8px;
+  }
+.gpc-arrbut-cross-btn-right-small .crosssell .procart-qb-small{
+  top: 3px;
+  }
