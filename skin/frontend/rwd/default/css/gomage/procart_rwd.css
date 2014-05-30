@@ -23,3 +23,75 @@
 .gpc-arrbut-cat-btn-right-small .products-grid .procart-qb-small{
   top: 3px;
   }
+.gpc-arrbut-cat-btn-tb .products-grid .product-info{
+  padding-bottom: 115px;
+  }
+  
+  
+/* Product page
+-------------------------------------------------- */
+[class*="gpc-arrbut-prodp"] .product-view .add-to-cart .qty-wrapper .qty{
+  height: 22px;
+  width: 30px;
+  }
+[class*="gpc-arrbut-prodp"] .product-view .add-to-cart .gpc_qty_edit{
+  margin-top: 0;
+  }
+  .gpc-arrbut-prodp-arr-tb .product-view .add-to-cart .qty-wrapper .qty{
+    margin-bottom: 4px;
+    }
+.gpc-arrbut-prodp-btn-tb .product-view .add-to-cart-wrapper .add-to-cart label,
+.gpc-arrbut-prodp-btn-tb .product-view .add-to-cart-wrapper .add-to-cart button{
+  margin-top: 6px;
+  }    
+  .gpc-arrbut-prodp-btn-tb .product-view .add-to-cart-wrapper .add-to-cart .qty-wrapper .qty{
+    margin-bottom: 4px;
+    }
+.gpc-arrbut-prodp-btn-lr .product-view .add-to-cart-wrapper .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .add-to-cart-wrapper .add-to-cart .gpc_qty_edit{
+	width:68px;
+	margin-top:10px;
+  }    
+.gpc-arrbut-prodp-btn-right-small .product-view .add-to-cart-wrapper .add-to-cart .gpc_qty_edit{
+  width:46px;
+	margin-top:10px;  
+  }
+.gpc-arrbut-prodp-arr-lr .product-view .product-options-bottom .gpc_qty_edit,
+.gpc-arrbut-prodp-arr-lr .product-view .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-lr .product-view .product-options-bottom .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right-small .product-view .product-options-bottom .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .product-options-bottom .gpc_qty_edit{
+  margin: 10px 0 0;
+  }
+.gpc-arrbut-prodp-btn-lr .product-view .product-options-bottom .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .product-shop .add-to-cart .gpc_qty_edit,
+.gpc-arrbut-prodp-btn-right .product-view .product-options-bottom .add-to-cart .gpc_qty_edit{
+  margin-top: 10px;
+  }
+.gpc-arrbut-prodp-btn-right-small .product-view .product-options-bottom .add-to-cart .gpc_qty_edit{
+  width: 60px;
+  margin: 10px 0 0;
+  }  
+.gpc-arrbut-prodp-btn-tb .product-view .product-shop .product-options-bottom .add-to-cart label,
+.gpc-arrbut-prodp-btn-tb .product-view .product-shop .product-options-bottom .add-to-cart button{
+  margin-top: 8px;
+  }
+[class*="gpc-arrbut-prodp"] .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit{
+  float: left;
+  }
+  [class*="gpc-arrbut-prodp"] .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty{
+    height: 22px;
+    }
+  [class*="gpc-arrbut-prodp"] .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit + label{
+    clear: both;
+    display: block;
+    }
+.gpc-arrbut-prodp-arr-lr .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty,
+.gpc-arrbut-prodp-btn-lr .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty,
+.gpc-arrbut-prodp-btn-right-small .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty,
+.gpc-arrbut-prodp-btn-right .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit .qty{
+  float: left;
+  }
+.gpc-arrbut-prodp-btn-right-small .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit {
+  width: 62px;
+  }
