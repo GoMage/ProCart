@@ -1264,6 +1264,9 @@ GomageProcartConfigClass.prototype = {
             if ($$('div.header-minicart a.no-count')[0]){
                 $$('div.header-minicart a.no-count')[0].removeClassName('no-count');
             }
+            if (typeof truncateOptions == 'function') {
+                truncateOptions();
+            }
         }
     },
 
