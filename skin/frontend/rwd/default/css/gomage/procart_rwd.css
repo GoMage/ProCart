@@ -13,21 +13,28 @@
 
 /* Category
 -------------------------------------------------- */
-.gpc-arrbut-cat-arr-lr .products-grid .procart-harr{
+.gpc-arrbut-cat-arr-lr .category-products .products-grid .procart-harr{
   margin-top: 11px;
   }
-.gpc-arrbut-cat-btn-lr .products-grid .procart-qbh,
-.gpc-arrbut-cat-btn-right .products-grid .procart-qb-right{
+.gpc-arrbut-cat-btn-lr .category-products .products-grid .procart-qbh,
+.gpc-arrbut-cat-btn-right .category-products .products-grid .procart-qb-right{
   margin-top: 8px;
   }
-.gpc-arrbut-cat-btn-right-small .products-grid .procart-qb-small{
+.gpc-arrbut-cat-btn-right-small .category-products .products-grid .procart-qb-small{
   top: 3px;
   }
-.gpc-arrbut-cat-btn-tb .products-grid .product-info{
+.gpc-arrbut-cat-btn-tb .category-products .products-grid .product-info,
+.gpc-arrbut-cat-arr-lr .category-products .products-grid .product-info,
+.gpc-arrbut-cat-btn-lr .category-products .products-grid .product-info,
+.gpc-arrbut-cat-btn-right .category-products .products-grid .product-info{
   padding-bottom: 115px;
   }
-  
-  
+.gpc-arrbut-cat-arr-lr .category-products .products-grid .actions [id^="gcp_add_to_cart"],
+.gpc-arrbut-cat-btn-lr .category-products .products-grid .actions [id^="gcp_add_to_cart"],
+.gpc-arrbut-cat-btn-right .category-products .products-grid .actions [id^="gcp_add_to_cart"]{
+  margin-bottom: 5px;
+  }
+
 /* Product page
 -------------------------------------------------- */
 [class*="gpc-arrbut-prodp"] .product-view .add-to-cart .qty-wrapper .qty{
@@ -94,4 +101,53 @@
   }
 .gpc-arrbut-prodp-btn-right-small .product-view .grouped-items-table .qty-wrapper .gpc_qty_edit {
   width: 62px;
+  }
+  
+/* Upsell
+-------------------------------------------------- */
+[class*="gpc-arrbut-upsell"] .box-up-sell button.btn-cart{
+  margin-bottom: 4px;
+  }
+.gpc-arrbut-upsell-arr-tb .box-up-sell button.btn-cart{
+  margin-top: 7px;
+  }
+.gpc-arrbut-upsell-arr-lr .box-up-sell .procart-harr{
+  margin-top: 11px;
+  }
+.gpc-arrbut-upsell-btn-tb .box-up-sell button.btn-cart{
+  margin-top: 15px;
+  }
+.gpc-arrbut-upsell-btn-lr .box-up-sell .procart-qbh,
+.gpc-arrbut-upsell-btn-right .box-up-sell .procart-qb-right{
+  margin-top: 8px;
+  }
+.gpc-arrbut-upsell-btn-right-small .box-up-sell .gpc_qty_edit{
+  position: relative;
+  top: 1px;
+  }
+.gpc-arrbut-upsell-btn-right-small .box-up-sell .procart-qb-small{
+  top: 3px;
+  }
+
+/* Crosssell
+-------------------------------------------------- */
+[class*="gpc-arrbut-cross"] .crosssell #crosssell-products-list .button{
+  display: inline-block;
+  }
+.gpc-arrbut-cross-arr-tb .crosssell #crosssell-products-list .button,
+.gpc-arrbut-cross-btn-tb .crosssell #crosssell-products-list .button{
+  margin-bottom: 4px;
+  }
+.gpc-arrbut-cross-arr-lr .crosssell .procart-harr{
+  margin-top: 11px;
+  }
+.gpc-arrbut-cross-arr-tb .crosssell button.btn-cart{
+  margin-top: 7px;
+  }
+.gpc-arrbut-cross-btn-lr .crosssell .procart-qbh,
+.gpc-arrbut-cross-btn-right .crosssell .procart-qb-right{
+  margin-top: 8px;
+  }
+.gpc-arrbut-cross-btn-right-small .crosssell .procart-qb-small{
+  top: 3px;
   }
