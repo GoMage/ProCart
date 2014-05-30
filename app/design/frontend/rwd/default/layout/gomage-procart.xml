@@ -48,7 +48,6 @@
             <remove name="catalog.product.related" />
             <block type="catalog/product_list_related" name="gomage.product.related" before="-" template="gomage/procart/product/list/related.phtml"/>
         </reference>
-
     </catalog_product_view>
     <review_product_list>
         <reference name="after_body_start">
@@ -60,4 +59,9 @@
             <block type="gomage_procart/product_cart" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" after="gomage.procart.config" />
         </reference>
     </checkout_cart_index>
+    <catalogsearch_result_index>
+        <reference name="after_body_start">
+            <block type="gomage_procart/product_list" name="gomage.procart.product.list" template="gomage/procart/product/list.phtml" />
+        </reference>
+    </catalogsearch_result_index>
 </layout>

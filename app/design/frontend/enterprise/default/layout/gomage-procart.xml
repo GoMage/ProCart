@@ -43,7 +43,6 @@
     	<reference name="after_body_start">
     		<block type="gomage_procart/product_view" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" before="-" />
     	</reference>
-
         <reference name="catalog.product.related.item">
             <action method="setTemplate">
                 <template>gomage/procart/product/list/related/item.phtml</template>
@@ -54,7 +53,6 @@
                 <template>gomage/procart/product/list/upsell/item.phtml</template>
             </action>
         </reference>
-
     </catalog_product_view>
     <checkout_cart_index>
         <reference name="checkout.cart">
@@ -71,4 +69,9 @@
             <block type="gomage_procart/product_cart" name="gomage.procart.product.view" template="gomage/procart/product/list.phtml" after="gomage.procart.config" />
         </reference>
     </checkout_cart_index>
+    <catalogsearch_result_index>
+        <reference name="after_body_start">
+            <block type="gomage_procart/product_list" name="gomage.procart.product.list" template="gomage/procart/product/list.phtml" />
+        </reference>
+    </catalogsearch_result_index>
 </layout>
