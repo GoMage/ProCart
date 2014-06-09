@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage ProCart Extension
  *
@@ -10,7 +11,6 @@
  * @version      Release: 2.1
  * @since        Class available since Release 1.0
  */
-
 class GoMage_Procart_Block_Product_List extends Mage_Catalog_Block_Product_List
 {
 
@@ -49,13 +49,11 @@ class GoMage_Procart_Block_Product_List extends Mage_Catalog_Block_Product_List
 
     public function getProcartProductList()
     {
-
         if (!$this->_procartproductlist) {
             $this->_procartproductlist = array();
             $helper                    = Mage::helper('gomage_procart');
 
-            foreach ($this->getLoadedProductCollection() as $_product) {
-                $product = Mage::getModel('catalog/product')->load($_product->getId());
+            foreach ($this->getLoadedProductCollection() as $product) {
                 if (!isset($this->_procartproductlist[$product->getId()])) {
                     $this->_procartproductlist[$product->getId()] = $helper->getProcartProductData($product, false, false);
                 }
@@ -73,7 +71,6 @@ class GoMage_Procart_Block_Product_List extends Mage_Catalog_Block_Product_List
                     }
                 }
             }
-
         }
 
         return Mage::helper('core')->jsonEncode($this->_procartproductlist);
