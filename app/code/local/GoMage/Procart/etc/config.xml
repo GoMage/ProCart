@@ -279,6 +279,7 @@
             </bundle>
             <checkout>
             	<rewrite>
+					<links>GoMage_Procart_Block_Checkout_Links</links>
 	        		<cart_item_renderer>GoMage_Procart_Block_Cart_Item_Renderer</cart_item_renderer>
 	        		<cart_item_renderer_grouped>GoMage_Procart_Block_Cart_Item_Renderer_Grouped</cart_item_renderer_grouped>
 	        		<cart_item_renderer_configurable>GoMage_Procart_Block_Cart_Item_Renderer_Configurable</cart_item_renderer_configurable>
