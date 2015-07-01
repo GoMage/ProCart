@@ -824,18 +824,20 @@ GomageProcartConfigClass.prototype = {
             this.showConfigurableParams(this.product_list[product_id].product_url, product_id);
 
         } else {
-
             if (this.config.add_effect == '2') {
                 this.slide_control = $('image');
 
                 if (this.slide_control == null) {
                     var slide_control = null;
-                    if ($('main-image')) {
+                    
+					if ($('main-image')) {
                         $('main-image').childElements().each(function (node) {
                             slide_control = node;
                         });
-                    }
-
+                    } else if ($('image-main')) {
+						 slide_control = $('image-main');
+					}
+					
                     this.slide_control = slide_control;
                 }
 
@@ -1444,7 +1446,6 @@ GomageProcartConfigClass.prototype = {
     },
 
     effectSlidetoCart: function (control) {
-
         if (!control) {
             return;
         }
@@ -1452,7 +1453,7 @@ GomageProcartConfigClass.prototype = {
         if (this.config.add_effect != '2') return;
         if (this.slide_control == undefined) return;
 
-        if (control.id == 'image') {
+        if (control.id == 'image' || control.id == 'image-main') {
             var img = control;
         } else {
             if ($(control).up('li.item') && $(control).up('li.item').down('img')) {
