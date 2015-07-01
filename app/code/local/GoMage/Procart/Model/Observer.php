@@ -125,10 +125,21 @@ class GoMage_Procart_Model_Observer
 
     public function getCartSidebar()
     {
-        $layout = Mage::getSingleton('core/layout');
-        $enterprise = Mage::helper('gomage_procart')->isEnterprise();
-        $template = $enterprise ? 'checkout/cart/cartheader.phtml' : 'checkout/cart/sidebar.phtml';
-        $cart_sidebar = $layout->createBlock('checkout/cart_sidebar', 'cart_sidebar')
+        $layout		= Mage::getSingleton('core/layout');
+		
+		$template	= 
+			(Mage::helper('gomage_procart')->isEnterprise())
+				? 'checkout/cart/cartheader.phtml' 
+					: 'checkout/cart/sidebar.phtml';
+		
+		$template	= 
+			(Mage::helper('gomage_procart')->isInfortisUltimo()) 
+				? 'checkout/cart/mini.phtml' 
+					: $template; 
+			
+          
+		 
+	    $cart_sidebar = $layout->createBlock('checkout/cart_sidebar', 'cart_sidebar')
             ->setTemplate($template)
             ->addItemRender('simple', 'checkout/cart_item_renderer', 'checkout/cart/sidebar/default.phtml')
             ->addItemRender('configurable', 'checkout/cart_item_renderer_configurable', 'checkout/cart/sidebar/default.phtml')
@@ -357,7 +368,13 @@ class GoMage_Procart_Model_Observer
 
             $cart = Mage::getSingleton('checkout/cart');
             $item = $cart->getQuote()->getItemById($id);
-            $product = Mage::getModel('catalog/product')->load($item->getProductId());
+			
+			if ($item && $item->getProductId()) {
+            	$product = Mage::getModel('catalog/product')->load($item->getProductId());
+			} else {
+				$result['error'] = true;
+                $result['message'] = $helper->__('Item already removed.');
+			}
 
             try {
                 Mage::getSingleton('checkout/cart')->removeItem($id)->save();
@@ -510,39 +527,53 @@ class GoMage_Procart_Model_Observer
     public function CompareAdd($event)
     {
         $request = Mage::app()->getFrontController()->getRequest();
-        if ($request->getParam('gpc_compare_add') == 1) {
-            $result = array();
-            $result['prod_name'] = $event->getProduct()->getName();
-            Mage::getSingleton('catalog/session')->getMessages(true);
+       
+	    if ($request->getParam('gpc_compare_add') == 1) {			
+		    Mage::getSingleton('catalog/session')->getMessages(true);
             Mage::helper('catalog/product_compare')->calculate();
-            $layout = Mage::getSingleton('core/layout');
-
-            $result['compare_products'] = $layout->createBlock('catalog/product_compare_sidebar', 'catalog.compare.sidebar')
-                ->setTemplate('catalog/product/compare/sidebar.phtml')
-                ->renderView();
-
-            echo Mage::helper('core')->jsonEncode($result);
-            exit();
+    		
+			$layout		= Mage::getSingleton('core/layout');		
+           	
+			$template	= 
+				(Mage::helper('gomage_procart')->isInfortisUltimo()) 
+					? 'catalog/product/compare/mini.phtml' 
+						: 'catalog/product/compare/sidebar.phtml'; 
+			
+			$result		= array(
+				'prod_name'			=> $event->getProduct()->getName(),
+				'compare_products'	=> $layout->createBlock('catalog/product_compare_sidebar', 'catalog.compare.sidebar')
+                						->setTemplate($template)
+										->renderView()
+			);
+			
+            exit(Mage::helper('core')->jsonEncode($result));
         }
     }
 
     public function CompareRemove($event)
     {
         $request = Mage::app()->getFrontController()->getRequest();
-        if (($request->getParam('gpc_remove_compare') == 1) &&
+		
+        if (
+			($request->getParam('gpc_remove_compare') == 1) &&
             ($request->getParam('isAjax') == 1)
         ) {
-            $result = array();
-
             Mage::helper('catalog/product_compare')->calculate();
-            $layout = Mage::getSingleton('core/layout');
-
-            $result['compare_products'] = $layout->createBlock('catalog/product_compare_sidebar', 'catalog.compare.sidebar')
-                ->setTemplate('catalog/product/compare/sidebar.phtml')
-                ->renderView();
-
-            echo Mage::helper('core')->jsonEncode($result);
-            exit();
+            
+			$layout		= Mage::getSingleton('core/layout');
+			
+			$template	= 
+				(Mage::helper('gomage_procart')->isInfortisUltimo()) 
+					? 'catalog/product/compare/mini.phtml' 
+						: 'catalog/product/compare/sidebar.phtml';
+			
+			$result		= array(
+				'compare_products'	=> $layout->createBlock('catalog/product_compare_sidebar', 'catalog.compare.sidebar')
+                						->setTemplate($template)
+										->renderView()
+			);
+			
+            exit(Mage::helper('core')->jsonEncode($result));
         }
     }
 

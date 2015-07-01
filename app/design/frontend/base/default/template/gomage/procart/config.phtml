@@ -25,6 +25,7 @@
     var gomage_procart_qty_category_popup_template = <?php echo $this->getQtyCategoryPopupTemplate(); ?>;
     var gomage_procart_continue_text = '<?php echo $this->getContinueButtonText(); ?>';
     var gomage_procart_configure_cart = <?php echo Mage::helper('gomage_procart')->isConfigureCart(); ?>;
+	var gomage_procart_infortis_ultimo = <?php echo (Mage::helper('gomage_procart')->isInfortisUltimo()) ? 'true' : 'false'; ?>;
 //]]>
 </script>
 

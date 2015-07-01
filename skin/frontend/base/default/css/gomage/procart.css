@@ -1160,3 +1160,10 @@ input.procart-qty,
 .gpc-arrbut-mcb-arr-tb #customer-nav-cart .mini-cart .price + span{
   width: 33px;
   }
+
+/* gpc-minicart
+
+-------------------------------------------------- */
+#gpc-minicart {
+	position: absolute;
+}

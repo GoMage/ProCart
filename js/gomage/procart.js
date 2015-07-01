@@ -65,6 +65,7 @@ GomageProcartConfigClass.prototype = {
     bundle_selection_hash: null,
     removeLayout: false,
     leaveCartBlock: false,
+	infortis_ultimo: false,
 
     initialize: function (config) {
 
@@ -85,13 +86,14 @@ GomageProcartConfigClass.prototype = {
             this.bundle_selection_hash = new Hash();
         }
 
-        this.qty_template = gomage_procart_qty_template;
-        this.qty_deals_template = gomage_procart_qty_deals_template;
-        this.qty_cart_template = gomage_procart_qty_cart_template;
-        this.qty_product_template = gomage_procart_qty_product_template;
-        this.qty_crosssell_template = gomage_procart_qty_crosssell_template;
-        this.qty_upsell_template = gomage_procart_qty_upsell_template;
-        this.qty_category_popup_template = gomage_procart_qty_category_popup_template;
+        this.qty_template					= gomage_procart_qty_template;
+        this.qty_deals_template				= gomage_procart_qty_deals_template;
+        this.qty_cart_template				= gomage_procart_qty_cart_template;
+        this.qty_product_template			= gomage_procart_qty_product_template;
+        this.qty_crosssell_template			= gomage_procart_qty_crosssell_template;
+        this.qty_upsell_template			= gomage_procart_qty_upsell_template;
+        this.qty_category_popup_template	= gomage_procart_qty_category_popup_template;
+		this.infortis_ultimo				= gomage_procart_infortis_ultimo;
 
         if ($$('div.category-products').length > 0) {
 
@@ -566,7 +568,9 @@ GomageProcartConfigClass.prototype = {
         var url = '';
         if (element.href) {
             url = element.href.replace("https", "http");
-        } else {
+        } else if (element.parentNode.href) {
+			url = element.parentNode.href.replace("https", "http");
+		} else {
             var item_id = element.name;
             item_id = item_id.replace(/\D/g, '');
             if (!item_id) {
@@ -674,7 +678,14 @@ GomageProcartConfigClass.prototype = {
     addToCompare: function (event) {
         Event.stop(event);
         var element = Event.element(event);
-        var url = element.href;
+        var url = '';
+		
+		if (element.href) {
+            url = element.href;
+        } else if (element.parentNode.href) {
+			url = element.parentNode.href;
+		}
+		
         var params = {gpc_compare_add: 1};
 
         this.startLoadData();
@@ -1191,13 +1202,26 @@ GomageProcartConfigClass.prototype = {
         }
     },
 
-    replaceSidebar: function (block_class, content_html) {
-
+    replaceSidebar: function (block_class, content_html) {	
+		if (this.infortis_ultimo) {
+			switch (block_class) {
+				case 'block-cart':
+					block_class = 'mini-cart';
+				break;
+				
+				case 'block-compare':
+					block_class = 'mini-compare';
+				break;
+			}
+		}
+			
         var blocks = $$('div.' + block_class);
-        for (var ii = 0; ii < blocks.length; ii++) {
+       
+	    for (var ii = 0; ii < blocks.length; ii++) {
             var block = blocks[ii];
             var content = content_html;
-            if (block && content) {
+           
+		    if (block && content) {
                 var js_scripts = content.extractScripts();
 
                 if (content && content.toElement) {
@@ -1209,19 +1233,22 @@ GomageProcartConfigClass.prototype = {
                     content = content.stripScripts();
                     tempElement.innerHTML = content;
                     el = getElementsByClassName(block_class, tempElement);
-                    if (el.length > 0) {
+                    
+					if (el.length > 0) {
                         content = el[0];
-                    }
-                    else {
+                    } else {
                         return;
                     }
                 }
+				
                 block.parentNode.replaceChild(content, block);
-                for (var i = 0; i < js_scripts.length; i++) {
+               
+			    for (var i = 0; i < js_scripts.length; i++) {
                     if (typeof(js_scripts[i]) != 'undefined') {
                         globalEval(js_scripts[i]);
                     }
                 }
+				
                 if (typeof truncateOptions == 'function') {
                     truncateOptions();
                 }
@@ -1230,14 +1257,18 @@ GomageProcartConfigClass.prototype = {
 
         if (block_class == 'block-cart') {
             var blocks = $$('div.' + block_class);
-            for (var ii = 0; ii < blocks.length; ii++) {
+            
+			for (var ii = 0; ii < blocks.length; ii++) {
                 var win_content = blocks[ii].up('div.gomage_aap_content');
-                if (win_content) {
+                
+				if (win_content) {
                     var win_id = win_content.id;
                     win_id = win_id.replace(/\D/g, '');
-                    if (typeof(GapWindows) == 'object') {
+                    
+					if (typeof(GapWindows) == 'object') {
                         var win = GapWindows.getWindow('gomage-ads-window-' + win_id);
-                        if (win) {
+                        
+						if (win) {
                             win.height = 0;
                             win.computeBounds();
                         }
@@ -1245,8 +1276,6 @@ GomageProcartConfigClass.prototype = {
                 }
             }
         }
-
-
     },
 
     replaceTopLinks: function (response) {
