@@ -618,24 +618,32 @@ class GoMage_Procart_Model_Observer
 
     public function updateItemOptionsWithError($event)
     {
-        $request = Mage::app()->getFrontController()->getRequest();
+        $request = Mage::app()->getFrontController()
+			->getRequest();
+		
         if ($request->getParam('gpc_add') == 1) {
-
-            $product = Mage::getModel('catalog/product')->load($request->getParam('product', 0));
-            $product_name = ($product->getId() ? $product->getName() : '');
-
-
-            $messages = array_merge(Mage::getSingleton('checkout/session')->getMessages(false)->getItems(Mage_Core_Model_Message::ERROR), Mage::getSingleton('checkout/session')->getMessages(false)->getItems(Mage_Core_Model_Message::NOTICE));
+            $product		= Mage::getModel('catalog/product')->load($request->getParam('product', 0));
+            $product_name	= ($product->getId() ? $product->getName() : '');
+            $messages = array_merge(
+				Mage::getSingleton('checkout/session')->getMessages(false)
+					->getItems(Mage_Core_Model_Message::ERROR), 
+				Mage::getSingleton('checkout/session')->getMessages(false)
+					->getItems(Mage_Core_Model_Message::NOTICE)
+			);
+			
             $message_text = '';
+			
             foreach ($messages as $message) {
                 $message_text .= str_replace('""', '"' . $product_name . '"', $message->getText());
             }
+			
             if ($message_text) {
                 Mage::getSingleton('checkout/session')->getMessages(true);
                 $result['success'] = false;
                 $result['message'] = $message_text;
-                echo Mage::helper('core')->jsonEncode($result);
-                exit();
+				$result['redirect'] = $product->getProductUrl();
+				
+                exit(Mage::helper('core')->jsonEncode($result));
             }
         }
     }

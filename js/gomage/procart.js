@@ -910,6 +910,7 @@ GomageProcartConfigClass.prototype = {
     },
 
     addtoCart: function (control) {
+		
         var control_id = control.id;
         control_id = control_id.replace(/\D/g, '');
         var onclick_str = this.add_to_cart_onclick_str[control_id];
@@ -1196,6 +1197,10 @@ GomageProcartConfigClass.prototype = {
         } else {
             if (response.message) {
                 alert(response.message);
+				
+				if (response.redirect) {
+					window.location.href = response.redirect;
+				}
             } else if (response.redirect) {
                 window.location.href = response.redirect;
             } else {
