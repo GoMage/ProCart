@@ -1018,10 +1018,15 @@ GomageProcartConfigClass.prototype = {
                         if ((typeof(Enterprise) != 'undefined') && Enterprise.Bundle.oldReloadPrice) {
                             Product.Bundle.prototype.reloadPrice = Enterprise.Bundle.oldReloadPrice;
                         }
+                        Event.stopObserving(document, "dom:loaded");
                         for (var i = 0; i < GomageProcartConfig.js_scripts.length; i++) {
                             if (typeof(GomageProcartConfig.js_scripts[i]) != 'undefined') {
                                 globalEval(GomageProcartConfig.js_scripts[i]);
                             }
+                        }
+                        try {
+                            Event.fire(document, "dom:loaded");
+                        } catch (e) {
                         }
                         if (response.product_id) {
                             if (!$('product-price-' + response.product_id) && $('product-price-' + response.product_id + '_clone')) {

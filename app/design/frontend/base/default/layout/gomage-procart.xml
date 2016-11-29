@@ -23,6 +23,8 @@
     		<action method="addJs" ifconfig="gomage_procart/general/enable"><script>prototype/effects.js</script></action>
     		<action method="addJs" ifconfig="gomage_procart/general/enable"><script>gomage/procart-window.js</script></action>
     		<action method="addJs" ifconfig="gomage_procart/general/enable"><script>varien/product.js</script></action>
+            <action method="addJs" ifconfig="gomage_procart/general/enable"><script>varien/product_options.js</script></action>
+            <action method="addItem" ifconfig="gomage_procart/general/enable"><type>skin_js</type><name helper="gomage_procart/getSwatchesProductJs"></name></action>
             <action method="addItem" ifconfig="gomage_procart/general/enable"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem" ifconfig="gomage_procart/general/enable"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem" ifconfig="gomage_procart/general/enable"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>

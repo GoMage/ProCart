@@ -13,6 +13,7 @@
  */
 class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $is_infortis_ultimo;
 
     public function getConfigData($node)
     {
@@ -379,6 +380,40 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             return false;
         }
         return $modules['Ultimento_Theme']->is('active');
+    }
+
+    public function isInfortisUltimo()
+    {
+        if ($this->is_infortis_ultimo === null) {
+            $modules = (array)Mage::getConfig()->getNode('modules')
+                ->children();
+
+            if (
+                !isset($modules['Infortis_Ultimo']) ||
+                !$modules['Infortis_Ultimo']->is('active') ||
+                (Mage::getStoreConfig('design/package/name') !== 'ultimo')
+            ) {
+                $this->is_infortis_ultimo = false;
+            } else {
+                $this->is_infortis_ultimo = true;
+            }
+        }
+
+        return $this->is_infortis_ultimo;
+    }
+
+    /**
+     * Get swatches product javascript
+     *
+     * @return string
+     */
+    public function getSwatchesProductJs()
+    {
+        $modules = (array)Mage::getConfig()->getNode('modules')->children();
+        if (isset($modules['Mage_ConfigurableSwatches']) && $modules['Mage_ConfigurableSwatches']->is('active')) {
+            return 'js/configurableswatches/swatches-product.js';
+        }
+        return '';
     }
 
     public function notify()
