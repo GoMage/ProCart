@@ -4,11 +4,11 @@
  * GoMage Procart Extension
  *
  * @category     Extension
- * @copyright    Copyright (c) 2010-2014 GoMage (http://www.gomage.com)
+ * @copyright    Copyright (c) 2010-2016 GoMage (https://www.gomage.com)
  * @author       GoMage
- * @license      http://www.gomage.com/license-agreement/  Single domain license
- * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 2.1
+ * @license      https://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use https://www.gomage.com/terms-of-use
+ * @version      Release: 2.2.0
  * @since        Class available since Release 1.0
  */
 class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
@@ -87,7 +87,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_downloadable/key/check'));
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=procart&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('2.1'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'key=' . urlencode($k) . '&sku=procart&domains=' . urlencode(implode(',', $this->getAllStoreDomains())) . '&ver=' . urlencode('2.2.0'));
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -437,7 +437,7 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, sprintf('https://www.gomage.com/index.php/gomage_notification/index/data'));
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=procart&timestamp=' . $timestamp . '&ver=' . urlencode('2.1'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'sku=procart&timestamp=' . $timestamp . '&ver=' . urlencode('2.2.0'));
             curl_setopt($ch, CURLOPT_TIMEOUT, 30);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
