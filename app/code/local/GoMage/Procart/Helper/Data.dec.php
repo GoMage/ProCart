@@ -96,7 +96,12 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
 
         $content = curl_exec($ch);
 
-        $r = Zend_Json::decode($content);
+        try {
+            $r = Zend_Json::decode($content);
+        } catch (\Exception $e) {
+            $r = array();
+        }
+
         $e = Mage::helper('core');
         if (empty($r)) {
 
@@ -182,7 +187,8 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function ga()
     {
-        return Zend_Json::decode(base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/procart/ar'))));
+        $ar = base64_decode(Mage::helper('core')->decrypt(Mage::getStoreConfig('gomage_activation/procart/ar')));
+        return $ar ? Zend_Json::decode($ar) : array();
     }
 
     public function getIsCartPage()
@@ -446,7 +452,11 @@ class GoMage_Procart_Helper_Data extends Mage_Core_Helper_Abstract
 
             $content = curl_exec($ch);
 
-            $result = Zend_Json::decode($content);
+            try {
+                $result = Zend_Json::decode($content);
+            } catch (\Exception $e) {
+                $result = array();
+            }
 
             if ($result && isset($result['frequency']) && ($result['frequency'] != $frequency)) {
                 Mage::app()->saveCache($result['frequency'], 'gomage_notifications_frequency');
